@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class LoadingView: CustomView {
-    let spinner = UIActivityIndicatorView()
+    let spinner = UIActivityIndicatorView(style: .large)
     
     override func configure() {
         spinner.hidesWhenStopped = true

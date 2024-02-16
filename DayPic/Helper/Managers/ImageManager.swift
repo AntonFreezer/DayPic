@@ -13,7 +13,7 @@ class ImageManager {
     
     private init() { }
     
-    public func setImage(at url: URL,
+    public func setImage(with url: URL,
                          for imageView: UIImageView?,
                          cornerRadius: Int = 20) {
         DispatchQueue.main.async {

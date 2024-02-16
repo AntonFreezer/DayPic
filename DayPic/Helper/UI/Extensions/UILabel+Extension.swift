@@ -8,6 +8,7 @@
 import UIKit
 
 extension UILabel: Configurable {
+    
     struct Model {
         let text: NSAttributedString
         let numberOfLines: Int
