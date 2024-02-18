@@ -14,7 +14,7 @@ enum TabBarItem {
     var tabTitle: String {
         switch self {
         case .pictures:
-            return "Home"
+            return String(localized: "Picture of the day")
 //        case .search:
 //            return "Search"
         }
