@@ -14,9 +14,9 @@ final class PicturesViewModel: NSObject, ViewModelType {
     //MARK: - Properties
     private(set) var router: any Router
     
-    enum Section {
-        case PictureOfTheDay
-        case PicturesList
+    enum Section: CaseIterable {
+        case pictureOfTheDay
+        case picturesList
     }
     
     private(set) var isLoadingCharacters = false
@@ -56,10 +56,6 @@ final class PicturesViewModel: NSObject, ViewModelType {
         return output
     }
     
-    
-    
-    
-    
     // private(set) var currentResponseInfo: GetPicturesResponse.Info? = nil
     
     // public var shouldShowMoreIndicator: Bool {
@@ -72,7 +68,6 @@ final class PicturesViewModel: NSObject, ViewModelType {
     }
     
     //MARK: - Network
-    
     public func fetchFirstPictures() {
         self.pictureOfTheDay = [
             Picture(
@@ -92,72 +87,89 @@ final class PicturesViewModel: NSObject, ViewModelType {
             Picture(
                 title: "Moon5",
                 imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
+            Picture(
+                title: "Moon6",
+                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
+            Picture(
+                title: "Moon7",
+                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
+            Picture(
+                title: "Moon8",
+                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
+            Picture(
+                title: "Moon9",
+                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
+            Picture(
+                title: "Moon10",
+                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
         ]
-        
         
         DispatchQueue.main.async {
             self.subject.send(.didLoadPictures)
         }
     }
-    
-    //    public func fetchFirstPictures() {
-    //        APIService.shared.execute(.allPicturesRequest, expecting: GetAllPicturessResponse.self) { [weak self] result in
-    //            guard let self = self else { return }
-    //
-    //            switch result {
-    //
-    //            case .failure(let error):
-    //                print(String(describing: error))
-    //
-    //            case.success(let responseModel):
-    //                let results = responseModel.results
-    //                let info = responseModel.info
-    //
-    //                self.pictures = results
-    //                self.currentResponseInfo = info
-    //
-    //                DispatchQueue.main.async {
-    //                    self.subject.send(.didLoadPictures)
-    //                }
-    //            }
-    //        }
-    //    }
-    //
-    //    /// General fetching from API
-    //    public func fetchPictures(url: URL) {
-    //        guard !isLoadingCharacters,
-    //              shouldShowMoreIndicator
-    //        else { return }
-    //
-    //        isLoadingCharacters = true
-    //
-    //        guard let request = APIRequest(url: url) else {
-    //            isLoadingCharacters = false
-    //            return
-    //        }
-    //
-    //        APIService.shared.execute(request, expecting: GetAllCharactersResponse.self) { [weak self] result in
-    //            guard let self = self else { return }
-    //
-    //            switch result {
-    //
-    //            case .failure(let error):
-    //                self.isLoadingCharacters = false
-    //                print(String(describing: error))
-    //
-    //            case.success(let responseModel):
-    //                let results = responseModel.results
-    //                let info = responseModel.info
-    //                self.currentResponseInfo = info
-    //                self.characters.append(contentsOf: results)
-    //
-    //                DispatchQueue.main.async {
-    //                    self.subject.send(.didLoadCharacters)
-    //                    self.isLoadingCharacters = false
-    //                }
-    //            }
-    //        }
-    //    }
+
 }
 
+//MARK: - CollectionView Rendering
+extension PicturesViewModel: PicturesViewRendering {
+
+    private func createDefaultItemInsets() -> NSDirectionalEdgeInsets {
+        .init(top: 5, leading: 5, bottom: 5, trailing: 5)
+    }
+    
+    private func createSectionFooter() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),                                                      heightDimension: .absolute(100.0))
+        
+        let footer = NSCollectionLayoutBoundarySupplementaryItem(
+                        layoutSize: footerSize,
+                        elementKind: UICollectionView.elementKindSectionFooter,
+                        alignment: .bottom)
+            
+        return footer
+    }
+    
+    func createPictureOfTheDaySectionLayout() -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1.0)))
+        
+        item.contentInsets = createDefaultItemInsets()
+        
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(248)),
+            subitems: [item]
+        )
+                
+        let section = NSCollectionLayoutSection(group: group)
+        return section
+    }
+    
+    func createPicturesListLayout() -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(0.5),
+                heightDimension: .fractionalHeight(1.0)))
+        
+        item.contentInsets = createDefaultItemInsets()
+        
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalWidth(0.5)
+            ),
+            subitems: [item]
+        )
+        
+        let footer = createSectionFooter()
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = [footer]
+        return section
+    }
+
+}
 

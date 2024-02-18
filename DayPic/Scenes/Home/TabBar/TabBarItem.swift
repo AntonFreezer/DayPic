@@ -14,7 +14,7 @@ enum TabBarItem {
     var tabTitle: String {
         switch self {
         case .pictures:
-            return "Home"
+            return String(localized: "Picture of the day")
 //        case .search:
 //            return "Search"
         }
@@ -32,7 +32,9 @@ enum TabBarItem {
     var tabImage: UIImage? {
         switch self {
         case .pictures:
-            return UIImage(systemName: "house.fill")
+            let configuration = UIImage.SymbolConfiguration(hierarchicalColor: .white)
+            return UIImage(systemName: "photo.on.rectangle.angled",
+                           withConfiguration: configuration)
 //        case .search:
 //            return UIImage(systemName: "person.fill")
         }

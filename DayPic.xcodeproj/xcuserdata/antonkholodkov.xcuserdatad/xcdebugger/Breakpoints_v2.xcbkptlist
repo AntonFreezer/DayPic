@@ -3,4 +3,54 @@
    uuid = "6DDA4F25-4240-47BF-A3BD-2A105AC7FEFB"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A9D8DAF2-6C0D-42D5-9C55-117D3BF8DACB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DayPic/Helper/Managers/ImageManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "setImage(with:for:cornerRadius:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A9D8DAF2-6C0D-42D5-9C55-117D3BF8DACB - 3ab45732016f8e0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in DayPic.ImageManager.setImage(with: Foundation.URL, for: Swift.Optional&lt;__C.UIImageView&gt;, cornerRadius: Swift.Int) -&gt; ()"
+                  moduleName = "DayPic"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkholodkov/Documents/DayPic/DayPic/Helper/Managers/ImageManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "552">
+               </Location>
+               <Location
+                  uuid = "A9D8DAF2-6C0D-42D5-9C55-117D3BF8DACB - 3ab45732016f8df"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in DayPic.ImageManager.setImage(with: Foundation.URL, for: Swift.Optional&lt;__C.UIImageView&gt;, cornerRadius: Swift.Int) -&gt; ()"
+                  moduleName = "DayPic"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/antonkholodkov/Documents/DayPic/DayPic/Helper/Managers/ImageManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "628">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
