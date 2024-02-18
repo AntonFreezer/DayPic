@@ -7,32 +7,22 @@
 
 import UIKit
 
+protocol PicturesViewRendering: ViewModelType {
+    func createPictureOfTheDaySectionLayout() -> NSCollectionLayoutSection
+    func createPicturesListLayout() -> NSCollectionLayoutSection
+}
+
 final class PicturesView: UIView {
     
     //MARK: - UI Components
-    lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
-        layout.minimumInteritemSpacing = 15
-        layout.minimumLineSpacing = 15
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    private(set) var collectionView: UICollectionView!
+    var viewModel: (any PicturesViewRendering)?
         
-        let topInset: CGFloat = 50
-        collectionView.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
-        collectionView.backgroundColor = .clear
-        
-        collectionView.register(PictureCollectionViewCell.self, forCellWithReuseIdentifier: PictureCollectionViewCell.cellIdentifier)
-        collectionView.register(SectionFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: SectionFooterCollectionReusableView.identifier)
-        
-        return collectionView
-    }()
-    
     //MARK: - Lifecycle & Setup
     init() {
         super.init(frame: .zero)
         
-        addSubview(collectionView)
+        setupView()
         setupLayout()
     }
     
@@ -41,12 +31,42 @@ final class PicturesView: UIView {
         
     }
     
+    private func setupView() {
+        self.collectionView = createCollectionView()
+        addSubview(collectionView!)
+    }
+    
     private func setupLayout() {
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+            make.top.bottom.equalToSuperview()
+            make.trailing.leading.equalTo(safeAreaLayoutGuide).inset(10)
+        }
+    }
+    
+    //MARK: - Collection View
+    private func createCollectionView() -> UICollectionView {
+        let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ in
+            return self?.createSection(for: sectionIndex)
+        }
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .black
+        collectionView.showsVerticalScrollIndicator = false
+        
+        collectionView.register(PictureCollectionViewCell.self, forCellWithReuseIdentifier: PictureCollectionViewCell.cellIdentifier)
+        collectionView.register(SectionFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: SectionFooterCollectionReusableView.identifier)
+                
+        return collectionView
+    }
+    
+    private func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection? {
+        let sectionTypes = PicturesViewModel.Section.allCases
+        
+        switch sectionTypes[sectionIndex] {
+        case .pictureOfTheDay:
+            return viewModel?.createPictureOfTheDaySectionLayout()
+        case .picturesList:
+            return viewModel?.createPicturesListLayout()
         }
     }
     

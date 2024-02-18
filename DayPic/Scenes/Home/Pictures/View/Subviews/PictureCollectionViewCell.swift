@@ -30,7 +30,6 @@ final class PictureCollectionViewCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 12, weight: .regular)
         label.textColor = .white
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -41,7 +40,6 @@ final class PictureCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         setupCell()
-        setupLayer()
         setupLayout()
     }
     
@@ -50,13 +48,8 @@ final class PictureCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupCell() {
-        contentView.backgroundColor = UIColor.black
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
-    }
-    
-    private func setupLayer() {
-        contentView.layer.cornerRadius = contentView.bounds.height / 12
     }
     
     private func setupLayout() {
@@ -79,19 +72,20 @@ final class PictureCollectionViewCell: UICollectionViewCell {
     //MARK: - PictureCollectionViewCell ViewModel
     
     public func configure(with viewModel: PictureCollectionViewCellViewModel) {
-        // Name
-        titleLabel.text = viewModel.pictureTitle
-        // Image
+        // imageView
         viewModel.fetchImage { [weak self] result in
             switch result {
             case .success(let url):
-                ImageManager.shared.setImage(with: url, for: self?.imageView, cornerRadius: 16)
-                
+                self?.imageView.setImage(with: url)
             case .failure(let error):
                 print(String(describing: error))
                 break
             }
         }
+        
+        // nameLabel
+        titleLabel.text = viewModel.pictureTitle
+        
     }
 }
 

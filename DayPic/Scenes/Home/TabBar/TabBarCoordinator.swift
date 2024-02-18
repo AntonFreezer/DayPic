@@ -13,8 +13,10 @@ final class TabBarCoordinator<R: AppRouter>: NSObject, UITabBarControllerDelegat
 
     private lazy var tabBarController: UITabBarController = {
         let tabBar = UITabBarController()
-        tabBar.tabBar.backgroundColor = .white
+        
         tabBar.tabBar.isTranslucent = false
+        tabBar.tabBar.barStyle = .black
+        
         return tabBar
     }()
 

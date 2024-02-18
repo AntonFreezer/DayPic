@@ -16,7 +16,6 @@
 		965349A62B7E352C000611FB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 965349A52B7E352C000611FB /* SnapKit */; };
 		965349A92B7E353F000611FB /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 965349A82B7E353F000611FB /* Kingfisher */; };
 		965349AC2B7E38E5000611FB /* GenericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349AB2B7E38E5000611FB /* GenericViewController.swift */; };
-		965349AF2B7E3A42000611FB /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349AE2B7E3A42000611FB /* ImageManager.swift */; };
 		965349B32B7E42F1000611FB /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349B22B7E42F1000611FB /* CustomView.swift */; };
 		965349B52B7E4310000611FB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349B42B7E4310000611FB /* LoadingView.swift */; };
 		965349B82B7E454F000611FB /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349B72B7E454F000611FB /* Loadable.swift */; };
@@ -43,6 +42,9 @@
 		965349F12B7FB098000611FB /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349F02B7FB098000611FB /* TabBarItem.swift */; };
 		965349F32B7FB1E2000611FB /* NavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349F22B7FB1E2000611FB /* NavigationFlow.swift */; };
 		965349F62B7FB5AD000611FB /* PicturesFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349F52B7FB5AD000611FB /* PicturesFlow.swift */; };
+		965349FB2B7FEA7E000611FB /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349FA2B7FEA7E000611FB /* UIImageView+Extension.swift */; };
+		96534A022B829FC5000611FB /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 96534A012B829FC5000611FB /* Localizable.xcstrings */; };
+		96534A042B82A64C000611FB /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96534A032B82A64C000611FB /* UICollectionView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,7 +57,6 @@
 		9653499B2B7E2FD5000611FB /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 		9653499D2B7E2FFB000611FB /* PicturesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesCoordinator.swift; sourceTree = "<group>"; };
 		965349AB2B7E38E5000611FB /* GenericViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericViewController.swift; sourceTree = "<group>"; };
-		965349AE2B7E3A42000611FB /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		965349B22B7E42F1000611FB /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		965349B42B7E4310000611FB /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		965349B72B7E454F000611FB /* Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
@@ -82,6 +83,9 @@
 		965349F02B7FB098000611FB /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		965349F22B7FB1E2000611FB /* NavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationFlow.swift; sourceTree = "<group>"; };
 		965349F52B7FB5AD000611FB /* PicturesFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesFlow.swift; sourceTree = "<group>"; };
+		965349FA2B7FEA7E000611FB /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		96534A012B829FC5000611FB /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		96534A032B82A64C000611FB /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +157,7 @@
 			children = (
 				9653497C2B7E29B0000611FB /* Assets.xcassets */,
 				9653497E2B7E29B0000611FB /* LaunchScreen.storyboard */,
+				96534A012B829FC5000611FB /* Localizable.xcstrings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -160,6 +165,8 @@
 		9653498D2B7E2C45000611FB /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				965349FA2B7FEA7E000611FB /* UIImageView+Extension.swift */,
+				96534A032B82A64C000611FB /* UICollectionView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -167,7 +174,6 @@
 		9653498E2B7E2C4B000611FB /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				965349AD2B7E3A2F000611FB /* Managers */,
 				965349AA2B7E38D4000611FB /* UI */,
 			);
 			path = Helper;
@@ -277,14 +283,6 @@
 				965349B12B7E41A2000611FB /* Reusable */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		965349AD2B7E3A2F000611FB /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				965349AE2B7E3A42000611FB /* ImageManager.swift */,
-			);
-			path = Managers;
 			sourceTree = "<group>";
 		};
 		965349B02B7E404E000611FB /* Base */ = {
@@ -450,6 +448,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 965349672B7E29AE000611FB;
 			packageReferences = (
@@ -472,6 +471,7 @@
 			files = (
 				965349802B7E29B0000611FB /* LaunchScreen.storyboard in Resources */,
 				9653497D2B7E29B0000611FB /* Assets.xcassets in Resources */,
+				96534A022B829FC5000611FB /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,12 +494,13 @@
 				965349C32B7E4C23000611FB /* NavigationController.swift in Sources */,
 				965349D72B7E6E9E000611FB /* Picture.swift in Sources */,
 				965349EE2B7FAF05000611FB /* TabBarCoordinator.swift in Sources */,
-				965349AF2B7E3A42000611FB /* ImageManager.swift in Sources */,
+				96534A042B82A64C000611FB /* UICollectionView+Extension.swift in Sources */,
 				965349D02B7E6B87000611FB /* PicturesViewModel.swift in Sources */,
 				965349B82B7E454F000611FB /* Loadable.swift in Sources */,
 				965349E32B7EB133000611FB /* AppFlow.swift in Sources */,
 				965349BA2B7E4661000611FB /* ErrorPresentable.swift in Sources */,
 				965349EB2B7FAC96000611FB /* PicturesTransition.swift in Sources */,
+				965349FB2B7FEA7E000611FB /* UIImageView+Extension.swift in Sources */,
 				965349C72B7E529C000611FB /* SectionFooterCollectionReusableView.swift in Sources */,
 				965349C12B7E48C4000611FB /* UILabel+Extension.swift in Sources */,
 				9653499E2B7E2FFB000611FB /* PicturesCoordinator.swift in Sources */,

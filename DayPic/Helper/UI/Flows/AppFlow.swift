@@ -14,7 +14,12 @@ final class AppFlow: NavigationFlow {
 extension AppFlow: Coordinator {
     /// Application entry point
     func start() {
-        process(route: .showMainView(.pictures(.initialScreen)))
+        if UDService.isOnboardingCompleted() {
+            process(route: .showMainView(.pictures(.initialScreen)))
+        }
+        
+        // Onboarding
+        // process(route: .showOnboarding)
     }
 }
 

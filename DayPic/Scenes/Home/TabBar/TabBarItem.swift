@@ -32,7 +32,9 @@ enum TabBarItem {
     var tabImage: UIImage? {
         switch self {
         case .pictures:
-            return UIImage(systemName: "house.fill")
+            let configuration = UIImage.SymbolConfiguration(hierarchicalColor: .white)
+            return UIImage(systemName: "photo.on.rectangle.angled",
+                           withConfiguration: configuration)
 //        case .search:
 //            return UIImage(systemName: "person.fill")
         }

@@ -30,6 +30,7 @@ final class PicturesViewController: GenericViewController<PicturesView> {
     init(viewModel: PicturesViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -47,10 +48,10 @@ final class PicturesViewController: GenericViewController<PicturesView> {
     }
     
     private func setupView() {
-        rootView.collectionView.delegate = self
         
-        title = "Characters"
-        rootView.backgroundColor = UIColor.black
+        rootView.viewModel = self.viewModel
+        rootView.collectionView?.delegate = self
+        rootView.backgroundColor = .black
     }
     
     private func bindViewModel() {
@@ -62,12 +63,23 @@ final class PicturesViewController: GenericViewController<PicturesView> {
         }.store(in: &cancellables)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
 }
 
 //MARK: - UICollectionViewDiffableDataSource && Snapshot
 private extension PicturesViewController {
     func configureDataSource() {
         dataSource = DataSource(collectionView: rootView.collectionView, cellProvider: { (collectionView, indexPath, picture) -> UICollectionViewCell? in
+            
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PictureCollectionViewCell.cellIdentifier, for: indexPath) as? PictureCollectionViewCell
             
             cell?.configure(with: PictureCollectionViewCellViewModel(
@@ -83,9 +95,9 @@ private extension PicturesViewController {
     
     func applyShapshot(animatingDifferences: Bool = true) {
         var snapshot = Snapshot()
-        snapshot.appendSections([.PictureOfTheDay, .PicturesList])
-        snapshot.appendItems(viewModel.pictureOfTheDay, toSection: .PictureOfTheDay)
-        snapshot.appendItems(viewModel.pictures, toSection: .PicturesList)
+        snapshot.appendSections([.pictureOfTheDay, .picturesList])
+        snapshot.appendItems(viewModel.pictureOfTheDay, toSection: .pictureOfTheDay)
+        snapshot.appendItems(viewModel.pictures, toSection: .picturesList)
         dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
 }
@@ -93,20 +105,11 @@ private extension PicturesViewController {
 //MARK: - CollectionView Delegate
 extension PicturesViewController: UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let bounds = UIScreen.main.bounds
-        
-        let width = (bounds.width-25) / 2
-        let height = width * 1.35
-        
-        return CGSize(width: width, height: height)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let picture = dataSource.itemIdentifier(for: indexPath) else { return }
         
         // coordinator logic
-        // self.didSelectPicture(picture)
+        // coordinator.didSelectPicture(picture)
     }
     
 }
@@ -128,35 +131,43 @@ extension PicturesViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-//        guard viewModel.shouldShowMoreIndicator else {
-//            return .zero
+}
+
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+////        guard viewModel.shouldShowMoreIndicator else {
+////            return .zero
+////        }
+//        // footer for the last section
+//        guard section == collectionView.numberOfSections - 1 else {
+//            return CGSize()
 //        }
+//
+//        return CGSize(width: collectionView.frame.width, height: 100)
+//    }
+//}
+
+//MARK: - ScrollView Delegate & Pagination
+extension PicturesViewController: UIScrollViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
         
-        return CGSize(width: collectionView.frame.width, height: 100)
+        guard elementKind == UICollectionView.elementKindSectionFooter//,
+                //              !viewModel.isLoadingCharacters,
+                //              viewModel.shouldShowMoreIndicator
+        else { return }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            //            if let nextURL = self?.viewModel.currentResponseInfo?.next,
+            //               let url = URL(string: nextURL) {
+            //                self?.viewModel.fetchCharacters(url: url)
+            view.removeFromSuperview()
+            self?.rootView.collectionView.scrollToLastItem()
+        }
+        
     }
 }
 
-////MARK: - ScrollView Delegate & Pagination
-//extension PicturesViewController: UIScrollViewDelegate {
-//
-//    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-//
-//        guard elementKind == UICollectionView.elementKindSectionFooter,
-//              !viewModel.isLoadingCharacters,
-//              viewModel.shouldShowMoreIndicator
-//        else { return }
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-//            if let nextURL = self?.viewModel.currentResponseInfo?.next,
-//               let url = URL(string: nextURL) {
-//                self?.viewModel.fetchCharacters(url: url)
-//            }
-//
-//        }
-//    }
-//
-//}
+
 //
 ////MARK: - Navigation
 //
