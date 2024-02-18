@@ -43,8 +43,8 @@
 		965349F32B7FB1E2000611FB /* NavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349F22B7FB1E2000611FB /* NavigationFlow.swift */; };
 		965349F62B7FB5AD000611FB /* PicturesFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349F52B7FB5AD000611FB /* PicturesFlow.swift */; };
 		965349FB2B7FEA7E000611FB /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349FA2B7FEA7E000611FB /* UIImageView+Extension.swift */; };
-		96534A022B829FC5000611FB /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 96534A012B829FC5000611FB /* Localizable.xcstrings */; };
 		96534A042B82A64C000611FB /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96534A032B82A64C000611FB /* UICollectionView+Extension.swift */; };
+		96534A062B82AB04000611FB /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 96534A052B82AB04000611FB /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,8 +84,8 @@
 		965349F22B7FB1E2000611FB /* NavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationFlow.swift; sourceTree = "<group>"; };
 		965349F52B7FB5AD000611FB /* PicturesFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesFlow.swift; sourceTree = "<group>"; };
 		965349FA2B7FEA7E000611FB /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
-		96534A012B829FC5000611FB /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		96534A032B82A64C000611FB /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		96534A052B82AB04000611FB /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +157,7 @@
 			children = (
 				9653497C2B7E29B0000611FB /* Assets.xcassets */,
 				9653497E2B7E29B0000611FB /* LaunchScreen.storyboard */,
-				96534A012B829FC5000611FB /* Localizable.xcstrings */,
+				96534A052B82AB04000611FB /* Localizable.xcstrings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -471,7 +471,7 @@
 			files = (
 				965349802B7E29B0000611FB /* LaunchScreen.storyboard in Resources */,
 				9653497D2B7E29B0000611FB /* Assets.xcassets in Resources */,
-				96534A022B829FC5000611FB /* Localizable.xcstrings in Resources */,
+				96534A062B82AB04000611FB /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

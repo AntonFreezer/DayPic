@@ -104,7 +104,6 @@ final class PicturesViewModel: NSObject, ViewModelType {
                 imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
         ]
         
-        
         DispatchQueue.main.async {
             self.subject.send(.didLoadPictures)
         }
