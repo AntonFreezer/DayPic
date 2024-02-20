@@ -48,8 +48,8 @@ final class PictureCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupCell() {
-        contentView.addSubview(imageView)
-        contentView.addSubview(titleLabel)
+        contentView.backgroundColor = .clear
+        contentView.addSubviews(imageView, titleLabel)
     }
     
     private func setupLayout() {

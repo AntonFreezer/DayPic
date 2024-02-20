@@ -45,6 +45,11 @@
 		965349FB2B7FEA7E000611FB /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349FA2B7FEA7E000611FB /* UIImageView+Extension.swift */; };
 		96534A042B82A64C000611FB /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96534A032B82A64C000611FB /* UICollectionView+Extension.swift */; };
 		96534A062B82AB04000611FB /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 96534A052B82AB04000611FB /* Localizable.xcstrings */; };
+		96534A092B8340E3000611FB /* PictureDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96534A082B8340E3000611FB /* PictureDetailCoordinator.swift */; };
+		96534A0B2B834136000611FB /* PictureDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96534A0A2B834136000611FB /* PictureDetailViewController.swift */; };
+		96534A0D2B834141000611FB /* PictureDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96534A0C2B834141000611FB /* PictureDetailViewModel.swift */; };
+		96534A0F2B83414C000611FB /* PictureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96534A0E2B83414B000611FB /* PictureDetailView.swift */; };
+		96534A142B834875000611FB /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96534A132B834875000611FB /* UIView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +91,11 @@
 		965349FA2B7FEA7E000611FB /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		96534A032B82A64C000611FB /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		96534A052B82AB04000611FB /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		96534A082B8340E3000611FB /* PictureDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureDetailCoordinator.swift; sourceTree = "<group>"; };
+		96534A0A2B834136000611FB /* PictureDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureDetailViewController.swift; sourceTree = "<group>"; };
+		96534A0C2B834141000611FB /* PictureDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureDetailViewModel.swift; sourceTree = "<group>"; };
+		96534A0E2B83414B000611FB /* PictureDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureDetailView.swift; sourceTree = "<group>"; };
+		96534A132B834875000611FB /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +177,7 @@
 			children = (
 				965349FA2B7FEA7E000611FB /* UIImageView+Extension.swift */,
 				96534A032B82A64C000611FB /* UICollectionView+Extension.swift */,
+				96534A132B834875000611FB /* UIView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -184,6 +195,7 @@
 			children = (
 				965349EF2B7FB07A000611FB /* TabBar */,
 				965349912B7E2D22000611FB /* Pictures */,
+				96534A072B8340A6000611FB /* PictureDetail */,
 				965349902B7E2CEE000611FB /* Search */,
 			);
 			path = Home;
@@ -402,6 +414,41 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
+		96534A072B8340A6000611FB /* PictureDetail */ = {
+			isa = PBXGroup;
+			children = (
+				96534A082B8340E3000611FB /* PictureDetailCoordinator.swift */,
+				96534A122B83415D000611FB /* ViewController */,
+				96534A112B834156000611FB /* ViewModel */,
+				96534A102B83414F000611FB /* View */,
+			);
+			path = PictureDetail;
+			sourceTree = "<group>";
+		};
+		96534A102B83414F000611FB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				96534A0E2B83414B000611FB /* PictureDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		96534A112B834156000611FB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				96534A0C2B834141000611FB /* PictureDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		96534A122B83415D000611FB /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				96534A0A2B834136000611FB /* PictureDetailViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -494,6 +541,7 @@
 				965349C32B7E4C23000611FB /* NavigationController.swift in Sources */,
 				965349D72B7E6E9E000611FB /* Picture.swift in Sources */,
 				965349EE2B7FAF05000611FB /* TabBarCoordinator.swift in Sources */,
+				96534A142B834875000611FB /* UIView+Extension.swift in Sources */,
 				96534A042B82A64C000611FB /* UICollectionView+Extension.swift in Sources */,
 				965349D02B7E6B87000611FB /* PicturesViewModel.swift in Sources */,
 				965349B82B7E454F000611FB /* Loadable.swift in Sources */,
@@ -501,9 +549,12 @@
 				965349BA2B7E4661000611FB /* ErrorPresentable.swift in Sources */,
 				965349EB2B7FAC96000611FB /* PicturesTransition.swift in Sources */,
 				965349FB2B7FEA7E000611FB /* UIImageView+Extension.swift in Sources */,
+				96534A0F2B83414C000611FB /* PictureDetailView.swift in Sources */,
 				965349C72B7E529C000611FB /* SectionFooterCollectionReusableView.swift in Sources */,
 				965349C12B7E48C4000611FB /* UILabel+Extension.swift in Sources */,
 				9653499E2B7E2FFB000611FB /* PicturesCoordinator.swift in Sources */,
+				96534A0D2B834141000611FB /* PictureDetailViewModel.swift in Sources */,
+				96534A092B8340E3000611FB /* PictureDetailCoordinator.swift in Sources */,
 				965349F62B7FB5AD000611FB /* PicturesFlow.swift in Sources */,
 				965349C52B7E51F3000611FB /* PicturesView.swift in Sources */,
 				965349B32B7E42F1000611FB /* CustomView.swift in Sources */,
@@ -511,6 +562,7 @@
 				965349E92B7FAB93000611FB /* AppTransition.swift in Sources */,
 				965349CE2B7E643F000611FB /* PicturesViewController.swift in Sources */,
 				965349BC2B7E4696000611FB /* ErrorView.swift in Sources */,
+				96534A0B2B834136000611FB /* PictureDetailViewController.swift in Sources */,
 				965349CA2B7E54C6000611FB /* PictureCollectionViewCell.swift in Sources */,
 				965349D22B7E6C2D000611FB /* ViewModelType.swift in Sources */,
 				965349762B7E29AE000611FB /* SceneDelegate.swift in Sources */,

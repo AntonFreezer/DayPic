@@ -14,10 +14,12 @@ protocol PicturesViewRendering: ViewModelType {
 
 final class PicturesView: UIView {
     
+    //MARK: - Properties
+    var viewModel: (any PicturesViewRendering)?
+    
     //MARK: - UI Components
     private(set) var collectionView: UICollectionView!
-    var viewModel: (any PicturesViewRendering)?
-        
+    
     //MARK: - Lifecycle & Setup
     init() {
         super.init(frame: .zero)
