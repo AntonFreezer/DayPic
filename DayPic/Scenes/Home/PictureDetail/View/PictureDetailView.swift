@@ -17,6 +17,7 @@ final class PictureDetailView: UIView {
         let scrollView = UIScrollView(frame: .zero)
         
         scrollView.automaticallyAdjustsScrollIndicatorInsets = true
+        scrollView.contentInsetAdjustmentBehavior = .never
         
         return scrollView
     }()
