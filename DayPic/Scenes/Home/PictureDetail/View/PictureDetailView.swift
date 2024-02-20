@@ -22,7 +22,7 @@ final class PictureDetailView: UIView {
         return scrollView
     }()
     
-    private let pictureImageContainer: UIView = {
+    let pictureImageContainer: UIView = {
         let view = UIView(frame: .zero)
         
         view.backgroundColor = .clear
@@ -30,7 +30,7 @@ final class PictureDetailView: UIView {
         return view
     }()
     
-    private let pictureImageView: UIImageView = {
+    let pictureImageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         
         imageView.contentMode = .scaleAspectFill
@@ -39,7 +39,7 @@ final class PictureDetailView: UIView {
         return imageView
     }()
     
-    private let pictureTextElementsContainer: UIView = {
+    let pictureTextElementsContainer: UIView = {
         let view = UIView(frame: .zero)
         
         view.backgroundColor = .clear
@@ -47,7 +47,7 @@ final class PictureDetailView: UIView {
         return view
     }()
     
-    private let pictureTitleLabel: UILabel = {
+    let pictureTitleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         
         label.numberOfLines = 0
@@ -58,7 +58,7 @@ final class PictureDetailView: UIView {
         return label
     }()
     
-    private let pictureDescriptionLabel: UILabel = {
+    let pictureDescriptionLabel: UILabel = {
         let label = UILabel(frame: .zero)
         
         label.numberOfLines = 0

@@ -94,7 +94,7 @@ final class PicturesViewModel: NSObject, ViewModelType {
             Picture(
                 title: "Astronaut Edwin Aldrin descends steps of Lunar Module ladder to walk on moon",
                 imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
-                description: "some description"),
+                description: String(repeating: "description", count: 999)),
             Picture(
                 title: "Moon6",
                 imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",

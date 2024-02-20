@@ -63,10 +63,39 @@ final class PictureDetailViewController: GenericViewController<PictureDetailView
 
 extension PictureDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.convert(rootView.frame.origin, to: rootView).y >= 0 {
-            navigationController?.navigationBar.topItem?.title = ""
-        } else {
-            navigationController?.navigationBar.topItem?.title = viewModel.pictureTitle
+        let statusBarHeight = (rootView.window?.windowScene?.statusBarManager?.statusBarFrame.height)!
+        let navigationBarHeight = (navigationController?.navigationBar.bounds.height)!
+        
+        applyFadeToNavigationStatusBars()
+        setNavigationBarTitle()
+        
+        func applyFadeToNavigationStatusBars() {
+            let headerHeight = rootView.pictureImageContainer.bounds.height
+            let headerTargetHeight = headerHeight - navigationBarHeight - statusBarHeight
+            
+            var headerOffset = scrollView.contentOffset.y / headerTargetHeight
+            if headerOffset > 1 { headerOffset = 1 } // capping
+            if headerOffset > 0.5 {
+                self.navigationController?.navigationBar.barStyle = UIBarStyle.default
+            } else {
+                self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+            }
+            
+            let clearToBlack: UIColor = .black.withAlphaComponent(headerOffset)
+            navigationController?.navigationBar.standardAppearance.backgroundColor = clearToBlack
         }
+        
+        func setNavigationBarTitle() {
+            let pictureTitleTarget = scrollView.convert(
+                rootView.pictureTextElementsContainer.frame.origin,
+                to: rootView).y - navigationBarHeight - statusBarHeight
+            
+            if pictureTitleTarget <= 0  {
+                navigationController?.navigationBar.topItem?.title = viewModel.pictureTitle
+            } else {
+                navigationController?.navigationBar.topItem?.title = ""
+            }
+        }
+        
     }
 }

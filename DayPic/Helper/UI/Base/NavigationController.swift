@@ -28,7 +28,6 @@ final class NavigationController: UINavigationController {
         appearance.configureWithTransparentBackground()
         appearance.titleTextAttributes = [
             .foregroundColor: UIColor.white,
-            .font: UIFont.systemFont(ofSize: 20, weight: .bold)
         ]
         
         appearance.backButtonAppearance = makeStandardBackItemAppearance()
