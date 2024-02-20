@@ -90,11 +90,11 @@ final class PicturesViewModel: NSObject, ViewModelType {
             Picture(
                 title: "Moon4",
                 imageURL: "https://images-assets.nasa.gov/image/S69-39333/S69-39333~thumb.jpg",
-                description: String(repeating: "description", count: 999)),
+                description: String(repeating: "description ", count: 999)),
             Picture(
                 title: "Astronaut Edwin Aldrin descends steps of Lunar Module ladder to walk on moon",
                 imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
-                description: String(repeating: "description", count: 999)),
+                description: String(repeating: "description ", count: 999)),
             Picture(
                 title: "Moon6",
                 imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",

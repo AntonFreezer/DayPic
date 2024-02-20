@@ -116,18 +116,19 @@ final class PictureDetailView: UIView {
         }
         
         pictureTextElementsContainer.snp.makeConstraints { make in
-            make.top.equalTo(pictureImageContainer.snp.bottom)
+            make.top.equalTo(pictureImageContainer.snp.bottom).offset(15)
             make.leading.trailing.equalTo(self)
             make.bottom.equalTo(scrollView)
         }
         
         pictureTitleLabel.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(pictureTextElementsContainer)
+            make.top.equalTo(pictureTextElementsContainer)
+            make.leading.trailing.equalTo(pictureTextElementsContainer).inset(15)
         }
         
         pictureDescriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(pictureTitleLabel.snp.bottom)
-            make.leading.trailing.bottom.equalTo(pictureTextElementsContainer)
+            make.leading.trailing.bottom.equalTo(pictureTextElementsContainer).inset(15)
         }
     }
     
@@ -136,7 +137,7 @@ final class PictureDetailView: UIView {
         viewModel.fetchImage { [weak self] result in
             switch result {
             case .success(let url):
-                self?.pictureImageView.setImage(with: url)
+                self?.pictureImageView.setImage(with: url, cornerRadius: 0)
             case .failure(let error):
                 print(String(describing: error))
                 break
