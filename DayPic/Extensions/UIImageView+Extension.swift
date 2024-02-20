@@ -9,12 +9,12 @@ import UIKit
 import Kingfisher
 
 extension UIImageView {
-    func setImage(with url: URL) {
+    func setImage(with url: URL, cornerRadius: CGFloat = 16) {
         DispatchQueue.main.async {
             let size = self.bounds.size
             let resize = ResizingImageProcessor(referenceSize: size, mode: .aspectFill)
             let crop = CroppingImageProcessor(size: size)
-            let round = RoundCornerImageProcessor(cornerRadius: size.height / 5)
+            let round = RoundCornerImageProcessor(cornerRadius: cornerRadius)
             
             let processor = ((resize |> crop) |> round)
             

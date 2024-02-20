@@ -9,7 +9,7 @@ import Foundation
 
 enum PicturesTransition {
     case initialScreen
-//    case detailScreen
+    case detailScreen(picture: Picture)
 
     var identifier: String { "\(self)" }
 
@@ -17,8 +17,8 @@ enum PicturesTransition {
         switch self {
         case .initialScreen:
             return PicturesCoordinator(router: router)
-//        case .detailScreen:
-//            return HomeDetailCoordinator(router: router)
+        case .detailScreen(let picture):
+            return PictureDetailCoordinator(picture: picture, router: router)
         }
     }
 }

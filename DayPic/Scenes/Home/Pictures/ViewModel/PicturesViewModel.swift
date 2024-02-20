@@ -28,6 +28,7 @@ final class PicturesViewModel: NSObject, ViewModelType {
     enum Input {
         case viewDidLoad
         case onScrollPaginated(url: URL)
+        case didSelectPicture(picture: Picture)
     }
     
     enum Output {
@@ -50,6 +51,8 @@ final class PicturesViewModel: NSObject, ViewModelType {
             case .onScrollPaginated(let url):
                 //                fetchPictures(url: url)
                 subject.send(.didLoadPictures)
+            case .didSelectPicture(let picture):
+                router.process(route: .detailScreen(picture: picture))
             }
         }.store(in: &cancellables)
         
@@ -72,49 +75,74 @@ final class PicturesViewModel: NSObject, ViewModelType {
         self.pictureOfTheDay = [
             Picture(
                 title: "Moon1",
-                imageURL: "https://images-assets.nasa.gov/image/iss017e011436/iss017e011436~thumb.jpg")
+                imageURL: "https://images-assets.nasa.gov/image/iss017e011436/iss017e011436~thumb.jpg",
+            description: String(repeating: "description", count: 999)),
         ]
         self.pictures = [
             Picture(
                 title: "Moon2",
-                imageURL: "https://images-assets.nasa.gov/image/iss014e08916/iss014e08916~thumb.jpg"),
+                imageURL: "https://images-assets.nasa.gov/image/iss014e08916/iss014e08916~thumb.jpg",
+                description: String(repeating: "description", count: 999)),
             Picture(
                 title: "Moon3",
-                imageURL: "https://images-assets.nasa.gov/image/PIA25626/PIA25626~thumb.jpg"),
+                imageURL: "https://images-assets.nasa.gov/image/PIA25626/PIA25626~thumb.jpg",
+                description: String(repeating: "description", count: 999)),
             Picture(
                 title: "Moon4",
-                imageURL: "https://images-assets.nasa.gov/image/S69-39333/S69-39333~thumb.jpg"),
+                imageURL: "https://images-assets.nasa.gov/image/S69-39333/S69-39333~thumb.jpg",
+                description: String(repeating: "description ", count: 999)),
             Picture(
-                title: "Moon5",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
+                title: "Astronaut Edwin Aldrin descends steps of Lunar Module ladder to walk on moon",
+                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
+                description: String(repeating: "description ", count: 999)),
             Picture(
                 title: "Moon6",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
+                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
+                description: "some description"),
             Picture(
                 title: "Moon7",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
+                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
+                description: "some description"),
             Picture(
                 title: "Moon8",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
+                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
+                description: "some description"),
             Picture(
                 title: "Moon9",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
+                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
+                description: "some description"),
             Picture(
                 title: "Moon10",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
+                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
+                description: "some description"),
         ]
         
         DispatchQueue.main.async {
             self.subject.send(.didLoadPictures)
         }
     }
+    
+//    public func fetchPictures() {
+//        self.pictures.append(contentsOf: [
+//            Picture(title: "Moon11",
+//                    imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
+//            Picture(title: "Moon12",
+//                    imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
+//            Picture(title: "Moon13",
+//                    imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
+//        ])
+//        
+//        DispatchQueue.main.async {
+//            self.subject.send(.didLoadPictures)
+//        }
+//    }
 
 }
 
 //MARK: - CollectionView Rendering
 extension PicturesViewModel: PicturesViewRendering {
 
-    private func createDefaultItemInsets() -> NSDirectionalEdgeInsets {
+    private func createDefaultEdgeInsets() -> NSDirectionalEdgeInsets {
         .init(top: 5, leading: 5, bottom: 5, trailing: 5)
     }
     
@@ -135,8 +163,6 @@ extension PicturesViewModel: PicturesViewRendering {
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: .fractionalHeight(1.0)))
         
-        item.contentInsets = createDefaultItemInsets()
-        
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
@@ -145,6 +171,8 @@ extension PicturesViewModel: PicturesViewRendering {
         )
                 
         let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = createDefaultEdgeInsets()
+        
         return section
     }
     
@@ -154,7 +182,7 @@ extension PicturesViewModel: PicturesViewRendering {
                 widthDimension: .fractionalWidth(0.5),
                 heightDimension: .fractionalHeight(1.0)))
         
-        item.contentInsets = createDefaultItemInsets()
+        item.contentInsets = createDefaultEdgeInsets()
         
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: NSCollectionLayoutSize(

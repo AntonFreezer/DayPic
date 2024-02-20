@@ -108,6 +108,7 @@ extension PicturesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let picture = dataSource.itemIdentifier(for: indexPath) else { return }
         
+        subject.send(.didSelectPicture(picture: picture))
         // coordinator logic
         // coordinator.didSelectPicture(picture)
     }
@@ -159,7 +160,9 @@ extension PicturesViewController: UIScrollViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             //            if let nextURL = self?.viewModel.currentResponseInfo?.next,
             //               let url = URL(string: nextURL) {
-            //                self?.viewModel.fetchCharacters(url: url)
+            //                  self?.viewModel.fetchPictures(url)
+            
+            // if there is nothing to fetch
             view.removeFromSuperview()
             self?.rootView.collectionView.scrollToLastItem()
         }
