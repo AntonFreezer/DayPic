@@ -108,9 +108,9 @@ final class PictureDetailView: UIView {
         }
         
         pictureImageView.snp.makeConstraints { make in
-            make.top.equalTo(self)
+            make.top.equalTo(self).priority(.high)
             make.left.right.equalTo(pictureImageContainer)
-            make.height.greaterThanOrEqualTo(pictureImageContainer.snp.height)
+            make.height.greaterThanOrEqualTo(pictureImageContainer.snp.height).priority(.required)
             make.bottom.equalTo(pictureImageContainer)
         }
         
