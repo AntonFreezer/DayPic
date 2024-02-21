@@ -9,14 +9,14 @@ import UIKit
 
 enum TabBarItem {
     case pictures(PicturesTransition?)
-//    case search(SearchTransition?)
+    case search(SearchTransition?)
 
     var tabTitle: String {
         switch self {
         case .pictures:
             return String(localized: "Picture of the day")
-//        case .search:
-//            return "Search"
+        case .search:
+            return String(localized: "Search")
         }
     }
 
@@ -24,8 +24,8 @@ enum TabBarItem {
         switch self {
         case .pictures:
             return 0
-//        case .search:
-//            return 1
+        case .search:
+            return 1
         }
     }
 
@@ -35,8 +35,10 @@ enum TabBarItem {
             let configuration = UIImage.SymbolConfiguration(hierarchicalColor: .white)
             return UIImage(systemName: "photo.on.rectangle.angled",
                            withConfiguration: configuration)
-//        case .search:
-//            return UIImage(systemName: "person.fill")
+        case .search:
+            let configuration = UIImage.SymbolConfiguration(hierarchicalColor: .white)
+            return UIImage(systemName: "magnifyingglass",
+            withConfiguration: configuration)
         }
     }
 }

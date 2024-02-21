@@ -27,12 +27,12 @@ final class TabBarCoordinator<R: AppRouter>: NSObject, UITabBarControllerDelegat
         return coordinator
     }()
 
-//    private lazy var searchCoordinator: SearchCoordinator = {
-//        let profileRoute = ProfileFlow(router: appRouter)
-//        let coordinator = ProfileCoordinator(router: profileRoute)
-//        coordinator.start()
-//        return coordinator
-//    }()
+    private lazy var searchCoordinator: SearchCoordinator = {
+        let searchRoute = SearchFlow(router: appRouter)
+        let coordinator = SearchCoordinator(router: searchRoute)
+        coordinator.start()
+        return coordinator
+    }()
 
 
     init(router: R, defaultTabItem: TabBarItem? = nil) {
@@ -61,8 +61,8 @@ final class TabBarCoordinator<R: AppRouter>: NSObject, UITabBarControllerDelegat
         switch transition {
         case .pictures:
             navigationController = picturesCoordinator.router.navigationController
-//        case .search:
-//            navigationController = searchCoordinator.router.navigationController
+        case .search:
+            navigationController = searchCoordinator.router.navigationController
         }
 
         navigationController.tabBarItem = tabBarItem(from: transition)
@@ -90,7 +90,7 @@ final class TabBarCoordinator<R: AppRouter>: NSObject, UITabBarControllerDelegat
 
 extension TabBarCoordinator: Coordinator {
     func start() {
-        let transitions: [TabBarItem] = [.pictures(nil)]
+        let transitions: [TabBarItem] = [.pictures(nil), .search(nil)]
 
         let controllers: [UIViewController] = transitions.map({ getTabController(for: $0) })
         prepareTabBarController(withTabControllers: controllers)
