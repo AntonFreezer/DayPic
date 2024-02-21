@@ -1,33 +1,33 @@
 //
-//  PicturesViewController.swift
+//  SearchViewController.swift
 //  DayPic
 //
-//  Created by Anton Kholodkov on 15.02.2024.
+//  Created by Anton Kholodkov on 21.02.2024.
 //
 
 import UIKit
 import Combine
 
-final class PicturesViewController: GenericViewController<PicturesView> {
+final class SearchViewController: GenericViewController<SearchView> {
     
     //MARK: - Properties
-    private typealias DataSource = UICollectionViewDiffableDataSource<PicturesViewModel.Section, Picture>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<PicturesViewModel.Section, Picture>
+    private typealias DataSource = UICollectionViewDiffableDataSource<SearchViewModel.Section, Picture>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<SearchViewModel.Section, Picture>
     
     private var dataSource: DataSource!
     
     //MARK: - IO
-    private let viewModel: PicturesViewModel
+    private let viewModel: SearchViewModel
     
-    private var output: AnyPublisher<PicturesViewModel.Input, Never> {
+    private var output: AnyPublisher<SearchViewModel.Input, Never> {
         return subject.eraseToAnyPublisher()
     }
-    private let subject = PassthroughSubject<PicturesViewModel.Input, Never>()
+    private let subject = PassthroughSubject<SearchViewModel.Input, Never>()
     
     private var cancellables = Set<AnyCancellable>()
     
     //MARK: - Lifecycle & Setup
-    init(viewModel: PicturesViewModel) {
+    init(viewModel: SearchViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         
@@ -48,9 +48,7 @@ final class PicturesViewController: GenericViewController<PicturesView> {
     }
     
     private func setupView() {
-        
-        rootView.viewModel = self.viewModel
-        rootView.collectionView?.delegate = self
+        rootView.collectionView.delegate = self
         rootView.backgroundColor = .black
     }
     
@@ -76,8 +74,9 @@ final class PicturesViewController: GenericViewController<PicturesView> {
 }
 
 //MARK: - UICollectionViewDiffableDataSource && Snapshot
-private extension PicturesViewController {
+private extension SearchViewController {
     func configureDataSource() {
+        
         dataSource = DataSource(collectionView: rootView.collectionView, cellProvider: { (collectionView, indexPath, picture) -> UICollectionViewCell? in
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PictureCollectionViewCell.cellIdentifier, for: indexPath) as? PictureCollectionViewCell
@@ -95,15 +94,23 @@ private extension PicturesViewController {
     
     func applyShapshot(animatingDifferences: Bool = true) {
         var snapshot = Snapshot()
-        snapshot.appendSections([.pictureOfTheDay, .picturesList])
-        snapshot.appendItems(viewModel.pictureOfTheDay, toSection: .pictureOfTheDay)
-        snapshot.appendItems(viewModel.pictures, toSection: .picturesList)
+        snapshot.appendSections([.searchList])
+        snapshot.appendItems(viewModel.pictures)
         dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
 }
 
 //MARK: - CollectionView Delegate
-extension PicturesViewController: UICollectionViewDelegate {
+extension SearchViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let bounds = UIScreen.main.bounds
+        
+        let width = bounds.width
+        let height = width * 0.6
+        
+        return CGSize(width: width, height: height)
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let picture = dataSource.itemIdentifier(for: indexPath) else { return }
@@ -114,7 +121,7 @@ extension PicturesViewController: UICollectionViewDelegate {
 }
 
 //MARK: - CollectionView Delegate FlowLayout & Supplementary Views
-extension PicturesViewController: UICollectionViewDelegateFlowLayout {
+extension SearchViewController: UICollectionViewDelegateFlowLayout {
     
     func setupSupplementaryViews() {
         // Footer
@@ -130,23 +137,17 @@ extension PicturesViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+//        guard viewModel.shouldShowMoreIndicator else {
+//            return .zero
+//        }
+        
+        return CGSize(width: collectionView.frame.width, height: 100)
+    }
 }
 
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-////        guard viewModel.shouldShowMoreIndicator else {
-////            return .zero
-////        }
-//        // footer for the last section
-//        guard section == collectionView.numberOfSections - 1 else {
-//            return CGSize()
-//        }
-//
-//        return CGSize(width: collectionView.frame.width, height: 100)
-//    }
-//}
-
 //MARK: - ScrollView Delegate & Pagination
-extension PicturesViewController: UIScrollViewDelegate {
+extension SearchViewController: UIScrollViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
         
