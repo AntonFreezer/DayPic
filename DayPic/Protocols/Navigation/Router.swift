@@ -27,5 +27,5 @@ extension Router {
 
 protocol AppRouter: Router where Route == AppTransition { }
 protocol PicturesRouter: Router where Route == PicturesTransition { }
-//protocol SearchRouter: Router where Route == SearchTransition { }
+protocol SearchRouter: Router where Route == SearchTransition { }
 
