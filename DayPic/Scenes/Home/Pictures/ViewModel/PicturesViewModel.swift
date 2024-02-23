@@ -7,32 +7,49 @@
 
 import UIKit
 import Combine
+import NasaNetwork
 
 final class PicturesViewModel: NSObject, ViewModelType {
     typealias Router = PicturesRouter
     
     //MARK: - Properties
     private(set) var router: any Router
+    private let networkService: NasaNetworkClient
     
     enum Section: CaseIterable {
         case pictureOfTheDay
         case picturesList
     }
     
-    private(set) var isLoadingCharacters = false
+    private(set) var isLoadingPictures = false
+    private(set) var pictureOfTheDay: [NasaPictureEntity] = []
+    private(set) var pictures: [NasaPictureEntity] = []
     
-    private(set) var pictureOfTheDay: [Picture] = []
-    private(set) var pictures: [Picture] = []
+    private let apodDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter
+    }()
+    private var currentEarliestPictureDate: Date? = nil
+    private var earliestPossiblePictureDate: Date {
+        apodDateFormatter.date(from: "1995-06-16")!
+    }
+    
+    public var shouldShowMoreIndicator: Bool {
+        guard let currentEarliestPictureDate else { return false }
+        return currentEarliestPictureDate >= earliestPossiblePictureDate
+    }
     
     //MARK: - IO
     enum Input {
         case viewDidLoad
-        case onScrollPaginated(url: URL)
-        case didSelectPicture(picture: Picture)
+        case onScrollPaginated
+        case didSelectPicture(picture: NasaPictureEntity)
     }
     
     enum Output {
         case didLoadPictures
+        case didReceiveError(Error)
     }
     
     var output: AnyPublisher<Output, Never> {
@@ -46,10 +63,13 @@ final class PicturesViewModel: NSObject, ViewModelType {
         input.sink { [unowned self] event in
             switch event {
             case .viewDidLoad:
-                fetchFirstPictures()
-                subject.send(.didLoadPictures)
-            case .onScrollPaginated(let url):
-                //                fetchPictures(url: url)
+                fetchFirstAndSubsequentPictures()
+            case .onScrollPaginated:
+                if let currentEarliestPictureDate {
+                    fetchSubsequentPictures(
+                        fromDate: apodDateFormatter.string(from: currentEarliestPictureDate),
+                        amount: 10)
+                }
                 subject.send(.didLoadPictures)
             case .didSelectPicture(let picture):
                 router.process(route: .detailScreen(picture: picture))
@@ -59,89 +79,66 @@ final class PicturesViewModel: NSObject, ViewModelType {
         return output
     }
     
-    // private(set) var currentResponseInfo: GetPicturesResponse.Info? = nil
-    
-    // public var shouldShowMoreIndicator: Bool {
-    // return currentResponseInfo?.next != nil
-    // }
-    
     //MARK: - Setup && Lifecycle
-    init(router: any Router) {
+    init(router: any Router, networkService: NasaNetworkClient) {
         self.router = router
+        self.networkService = networkService
     }
     
     //MARK: - Network
-    public func fetchFirstPictures() {
-        self.pictureOfTheDay = [
-            Picture(
-                title: "Moon1",
-                imageURL: "https://images-assets.nasa.gov/image/iss017e011436/iss017e011436~thumb.jpg",
-            description: String(repeating: "description", count: 999)),
-        ]
-        self.pictures = [
-            Picture(
-                title: "Moon2",
-                imageURL: "https://images-assets.nasa.gov/image/iss014e08916/iss014e08916~thumb.jpg",
-                description: String(repeating: "description", count: 999)),
-            Picture(
-                title: "Moon3",
-                imageURL: "https://images-assets.nasa.gov/image/PIA25626/PIA25626~thumb.jpg",
-                description: String(repeating: "description", count: 999)),
-            Picture(
-                title: "Moon4",
-                imageURL: "https://images-assets.nasa.gov/image/S69-39333/S69-39333~thumb.jpg",
-                description: String(repeating: "description ", count: 999)),
-            Picture(
-                title: "Astronaut Edwin Aldrin descends steps of Lunar Module ladder to walk on moon",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
-                description: String(repeating: "description ", count: 999)),
-            Picture(
-                title: "Moon6",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
-                description: "some description"),
-            Picture(
-                title: "Moon7",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
-                description: "some description"),
-            Picture(
-                title: "Moon8",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
-                description: "some description"),
-            Picture(
-                title: "Moon9",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
-                description: "some description"),
-            Picture(
-                title: "Moon10",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
-                description: "some description"),
-        ]
-        
-        DispatchQueue.main.async {
-            self.subject.send(.didLoadPictures)
+    private func fetchFirstAndSubsequentPictures() {
+        isLoadingPictures = true
+        Task {
+            try await Task.sleep(until: .now + .seconds(0.85), clock: .continuous)
+            let result = await networkService.sendRequest(request: NasaAPODRequest())
+            switch result {
+            case .success(let response):
+                pictureOfTheDay = [response]
+                fetchSubsequentPictures(fromDate: response.date, amount: 10)
+            case .failure(let error):
+                subject.send(.didReceiveError(error))
+            }
         }
     }
     
-//    public func fetchPictures() {
-//        self.pictures.append(contentsOf: [
-//            Picture(title: "Moon11",
-//                    imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
-//            Picture(title: "Moon12",
-//                    imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
-//            Picture(title: "Moon13",
-//                    imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg"),
-//        ])
-//        
-//        DispatchQueue.main.async {
-//            self.subject.send(.didLoadPictures)
-//        }
-//    }
-
+    private func fetchSubsequentPictures(fromDate dateString: String, amount: Int) {
+        isLoadingPictures = true
+        
+        guard let startDate = Calendar.current.date(
+            byAdding: .day, value: -amount,
+            to: apodDateFormatter.date(from: dateString)!),
+                startDate > earliestPossiblePictureDate else { return }
+        
+        currentEarliestPictureDate = startDate
+        
+        let endDate = Calendar.current.date(
+            byAdding: .day, value: -1,
+            to: apodDateFormatter.date(from: dateString)!)!
+        
+        let startDateString = apodDateFormatter.string(from: startDate)
+        let endDateString = apodDateFormatter.string(from: endDate)
+        
+        Task {
+            let result = await networkService.sendRequest(
+                request: NasaAPODStartEndDateRequest(startDate: startDateString,
+                                                     endDate: endDateString))
+            switch result {
+            case .success(let response):
+                self.pictures.append(contentsOf: response.sorted(by: { $0.date > $1.date }))
+                subject.send(.didLoadPictures)
+            case .failure(let error):
+                subject.send(.didReceiveError(error))
+            }
+        }
+        
+        isLoadingPictures = false
+    }
+    
 }
 
 //MARK: - CollectionView Rendering
 extension PicturesViewModel: PicturesViewRendering {
-
+    
     private func createDefaultEdgeInsets() -> NSDirectionalEdgeInsets {
         .init(top: 5, leading: 5, bottom: 5, trailing: 5)
     }
@@ -150,10 +147,10 @@ extension PicturesViewModel: PicturesViewRendering {
         let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),                                                      heightDimension: .absolute(100.0))
         
         let footer = NSCollectionLayoutBoundarySupplementaryItem(
-                        layoutSize: footerSize,
-                        elementKind: UICollectionView.elementKindSectionFooter,
-                        alignment: .bottom)
-            
+            layoutSize: footerSize,
+            elementKind: UICollectionView.elementKindSectionFooter,
+            alignment: .bottom)
+        
         return footer
     }
     
@@ -169,7 +166,7 @@ extension PicturesViewModel: PicturesViewRendering {
                 heightDimension: .absolute(248)),
             subitems: [item]
         )
-                
+        
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = createDefaultEdgeInsets()
         
@@ -198,6 +195,6 @@ extension PicturesViewModel: PicturesViewRendering {
         section.boundarySupplementaryItems = [footer]
         return section
     }
-
+    
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96204F852B88BB150092AB04 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96204F842B88BB150092AB04 /* DIContainer.swift */; };
 		965349742B7E29AE000611FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349732B7E29AE000611FB /* AppDelegate.swift */; };
 		965349762B7E29AE000611FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349752B7E29AE000611FB /* SceneDelegate.swift */; };
 		9653497D2B7E29B0000611FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9653497C2B7E29B0000611FB /* Assets.xcassets */; };
@@ -91,6 +92,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		96204F842B88BB150092AB04 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		965349702B7E29AE000611FB /* DayPic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayPic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		965349732B7E29AE000611FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		965349752B7E29AE000611FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +158,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		96204F832B88BB090092AB04 /* DIContainer */ = {
+			isa = PBXGroup;
+			children = (
+				96204F842B88BB150092AB04 /* DIContainer.swift */,
+			);
+			path = DIContainer;
+			sourceTree = "<group>";
+		};
 		965349672B7E29AE000611FB = {
 			isa = PBXGroup;
 			children = (
@@ -397,6 +407,7 @@
 		965349D32B7E6E1D000611FB /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				96204F832B88BB090092AB04 /* DIContainer */,
 				965349DD2B7E9EE3000611FB /* UDService */,
 				965349D42B7E6E28000611FB /* NasaService */,
 			);
@@ -641,6 +652,7 @@
 				965349C32B7E4C23000611FB /* NavigationController.swift in Sources */,
 				96873EBB2B854C8800EA911F /* SearchViewController.swift in Sources */,
 				96873EBD2B854CB900EA911F /* SearchViewModel.swift in Sources */,
+				96204F852B88BB150092AB04 /* DIContainer.swift in Sources */,
 				965349D72B7E6E9E000611FB /* Picture.swift in Sources */,
 				965349EE2B7FAF05000611FB /* TabBarCoordinator.swift in Sources */,
 				96873EBF2B854E1800EA911F /* SearchTransition.swift in Sources */,
@@ -822,7 +834,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -853,7 +865,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

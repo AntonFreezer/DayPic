@@ -37,11 +37,8 @@ final class PictureDetailViewController: GenericViewController<PictureDetailView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupView()
-//        bindViewModel()
-        
-//        subject.send(.viewDidLoad)
+
     }
     
     private func setupView() {
@@ -49,15 +46,6 @@ final class PictureDetailViewController: GenericViewController<PictureDetailView
         rootView.viewModel = self.viewModel
         rootView.backgroundColor = .black
     }
-    
-//    private func bindViewModel() {
-//        viewModel.transform(input: output).sink { [unowned self] event in
-//            switch event {
-//            case .didLoadPictures:
-//                self.applyShapshot()
-//            }
-//        }.store(in: &cancellables)
-//    }
     
 }
 

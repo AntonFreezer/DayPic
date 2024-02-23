@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import NasaNetwork
 
 enum PicturesTransition {
     case initialScreen
-    case detailScreen(picture: Picture)
+    case detailScreen(picture: NasaPictureEntity)
 
     var identifier: String { "\(self)" }
 

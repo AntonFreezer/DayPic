@@ -146,7 +146,7 @@ final class PictureDetailView: UIView {
         // Title
         pictureTitleLabel.text = viewModel.pictureTitle
         // Description
-        pictureDescriptionLabel.text = viewModel.pictureDescription
+        pictureDescriptionLabel.text = viewModel.pictureExplanation
     }
     
 }
