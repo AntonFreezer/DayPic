@@ -10,7 +10,7 @@ import XCTest
 
 final class NasaNetworkTests: XCTestCase {
     
-    var sut: DefaultNasaNetworkClient!
+    var sut: NasaNetworkClient!
     
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -55,14 +55,14 @@ final class NasaNetworkTests: XCTestCase {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = .autoupdatingCurrent
-        let threeDaysAgo = Calendar.current.date(byAdding: .day, value: -3, to: Date.now)
-        let threeDaysAgoDate = formatter.string(from: threeDaysAgo!)
+        let threeDaysAgoDate = Calendar.current.date(byAdding: .day, value: -3, to: Date.now)
+        let threeDaysAgoDateString = formatter.string(from: threeDaysAgoDate!)
         
         let expectation = expectation(description: "APOD with date response")
         Task {
             let result = await sut.sendRequest(
                 request: NasaAPODRequest(
-                    date: threeDaysAgoDate
+                    date: threeDaysAgoDateString
                 )
             )
             expectation.fulfill()
@@ -72,7 +72,42 @@ final class NasaNetworkTests: XCTestCase {
                 return
             }
             
-            XCTAssertEqual(threeDaysAgoDate, value.date)
+            XCTAssertEqual(threeDaysAgoDateString, value.date)
+        }
+        wait(for: [expectation], timeout: 10)
+    }
+    
+    func testPictureOfTheDayRequestWithStartEndDates() {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = .autoupdatingCurrent
+                
+        let todayDate = Date.now
+        let todayDateString = formatter.string(from: todayDate)
+        
+        let threeDaysAgoDate = Calendar.current.date(byAdding: .day, value: -3, to: Date.now)
+        let threeDaysAgoDateString = formatter.string(from: threeDaysAgoDate!)
+        
+        let expectation = expectation(description: "APOD with start_date, end_date response")
+        Task {
+            let result = await sut.sendRequest(
+                request: NasaAPODStartEndDateRequest(
+                    startDate: threeDaysAgoDateString,
+                    endDate: todayDateString)
+            )
+            expectation.fulfill()
+            
+            guard let values = try? result.get(), !values.isEmpty else {
+                XCTAssert(false)
+                return
+            }
+            
+            let receivedStartDateString = values.first?.date
+            let receivedEndDateString = values.last?.date
+            
+            XCTAssertTrue(receivedStartDateString == threeDaysAgoDateString)
+            XCTAssertTrue(receivedEndDateString == todayDateString)
         }
         wait(for: [expectation], timeout: 10)
     }
