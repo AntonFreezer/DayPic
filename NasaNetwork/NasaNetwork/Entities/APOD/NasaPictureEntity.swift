@@ -8,8 +8,8 @@
 import Foundation
 
 public struct NasaPictureEntity: Decodable, Hashable {
-    let date: String
-    let explanation: String
-    let title: String
-    let url: String
+    public let date: String
+    public let explanation: String
+    public let title: String
+    public let url: String
 }
