@@ -26,7 +26,7 @@ class GenericViewController<T: UIView>: UIViewController {
 extension GenericViewController: Loadable {
     func showLoading() {
         loadingView.spinner.startAnimating()
-        view.addSubview(loadingView)
+        rootView.addSubview(loadingView)
         loadingView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
@@ -52,9 +52,10 @@ extension GenericViewController: ErrorPresentable {
         errorView.actionTitle = actionTitle
         errorView.action = action
         
-        view.addSubview(errorView)
+        rootView.addSubview(errorView)
         errorView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.center.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(16)
         }
         
         errorView.backgroundColor = view.backgroundColor

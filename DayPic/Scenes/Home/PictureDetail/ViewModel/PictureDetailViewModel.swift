@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import NasaNetwork
 
 final class PictureDetailViewModel: NSObject, ViewModelType {
     typealias Router = PicturesRouter
@@ -14,18 +15,18 @@ final class PictureDetailViewModel: NSObject, ViewModelType {
     //MARK: - Properties
     private(set) var router: any Router
         
-    private let picture: Picture
+    private let picture: NasaPictureEntity
     
     public var pictureTitle: String {
         picture.title
     }
     
-    public var pictureDescription: String {
-        picture.description
+    public var pictureExplanation: String {
+        picture.explanation
     }
     
     private var pictureImageURL: URL? {
-        URL(string: picture.imageURL)
+        URL(string: picture.url)
     }
     
     //MARK: - IO
@@ -42,7 +43,7 @@ final class PictureDetailViewModel: NSObject, ViewModelType {
     }
     
     //MARK: - Setup && Lifecycle
-    init(picture: Picture, router: any Router) {
+    init(picture: NasaPictureEntity, router: any Router) {
         self.picture = picture
         self.router = router
     }

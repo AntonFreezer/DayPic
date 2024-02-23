@@ -9,6 +9,7 @@ import UIKit
 
 final class ErrorView: CustomView {
     
+    //MARK: - Properties
     var title: String = "" {
         didSet {
             titleLabel.update(
@@ -30,7 +31,8 @@ final class ErrorView: CustomView {
                     text: message ?? "",
                     font: .italicSystemFont(ofSize: 14),
                     textColor: .white,
-                    numberOfLines: 3
+                    numberOfLines: 3,
+                    alignment: .center
                 )
             )
             messageLabel.isHidden = message == nil
@@ -49,41 +51,57 @@ final class ErrorView: CustomView {
         }
     }
     
+    //MARK: - UI Components
     private let titleLabel = UILabel()
     private let messageLabel = UILabel()
-    private let actionButton = UIButton()
-    private let textStack = UIStackView()
+    private let actionButton = UIButton(type: .system)
     
-    override func configure() {
     
-        addSubview(textStack)
-        textStack.axis = .vertical
-        textStack.alignment = .center
-        textStack.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview().inset(16)
-        }
-        
-        textStack.addArrangedSubview(titleLabel)
-        textStack.addArrangedSubview(messageLabel)
-        
-        addSubview(actionButton)
+    //MARK: - Setup & Lifecycle
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureViews() {
+        addSubviews(titleLabel, messageLabel, actionButton)
+    
+        actionButton.addTarget(self, action: #selector(didTapActionButton), for: .touchUpInside)
         var configuration = UIButton.Configuration.filled()
         configuration.baseBackgroundColor = .darkGray
         configuration.baseForegroundColor = .white
         configuration.titleAlignment = .center
         configuration.contentInsets = .init(top: 8, leading: 16, bottom: 8, trailing: 16)
         actionButton.configuration = configuration
-        actionButton.isHidden = true
-        actionButton.addTarget(self, action: #selector(didTapActionButton), for: .touchUpInside)
-        actionButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(textStack.snp.bottom).offset(16)
+        
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        messageLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        actionButton.snp.makeConstraints { make in
+            make.top.equalTo(messageLabel.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.lessThanOrEqualToSuperview().inset(16)
         }
     }
     
-    @objc
-    private func didTapActionButton() {
+    //MARK: - Button Actions
+    @objc private func didTapActionButton() {
         action?(self)
     }
 }
-

@@ -7,12 +7,13 @@
 
 import UIKit
 import Combine
+import NasaNetwork
 
 final class PicturesViewController: GenericViewController<PicturesView> {
     
     //MARK: - Properties
-    private typealias DataSource = UICollectionViewDiffableDataSource<PicturesViewModel.Section, Picture>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<PicturesViewModel.Section, Picture>
+    private typealias DataSource = UICollectionViewDiffableDataSource<PicturesViewModel.Section, NasaPictureEntity>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<PicturesViewModel.Section, NasaPictureEntity>
     
     private var dataSource: DataSource!
     
@@ -39,6 +40,7 @@ final class PicturesViewController: GenericViewController<PicturesView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.showLoading()
         
         configureDataSource()
         setupView()
@@ -48,19 +50,25 @@ final class PicturesViewController: GenericViewController<PicturesView> {
     }
     
     private func setupView() {
-        
+        self.showLoading()
         rootView.viewModel = self.viewModel
         rootView.collectionView?.delegate = self
         rootView.backgroundColor = .black
     }
     
     private func bindViewModel() {
-        viewModel.transform(input: output).sink { [unowned self] event in
-            switch event {
-            case .didLoadPictures:
-                self.applyShapshot()
-            }
-        }.store(in: &cancellables)
+        viewModel.transform(input: output)
+            .receive(on: RunLoop.main)
+            .sink { [unowned self] event in
+                self.hideLoading()
+                
+                switch event {
+                case .didLoadPictures:
+                    self.applyShapshot()
+                case .didReceiveError(let error):
+                    self.showError(error)
+                }
+            }.store(in: &cancellables)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +79,19 @@ final class PicturesViewController: GenericViewController<PicturesView> {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    private func showError(_ error: Error) {
+        self.showError(
+            String(localized: "Couldn't load pictures"),
+            message: error.localizedDescription,
+            actionTitle: String(localized: "Refresh"),
+            action: { stub in
+                stub.removeFromSuperview()
+                self.showLoading()
+                self.subject.send(.viewDidLoad)
+            }
+        )
     }
     
 }
@@ -84,7 +105,7 @@ private extension PicturesViewController {
             
             cell?.configure(with: PictureCollectionViewCellViewModel(
                 pictureTitle: picture.title,
-                pictureImageURL: URL(string: picture.imageURL))
+                pictureImageURL: URL(string: picture.url))
             )
             
             return cell
@@ -132,39 +153,22 @@ extension PicturesViewController: UICollectionViewDelegateFlowLayout {
     
 }
 
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-////        guard viewModel.shouldShowMoreIndicator else {
-////            return .zero
-////        }
-//        // footer for the last section
-//        guard section == collectionView.numberOfSections - 1 else {
-//            return CGSize()
-//        }
-//
-//        return CGSize(width: collectionView.frame.width, height: 100)
-//    }
-//}
-
 //MARK: - ScrollView Delegate & Pagination
 extension PicturesViewController: UIScrollViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
         
-        guard elementKind == UICollectionView.elementKindSectionFooter//,
-                //              !viewModel.isLoadingCharacters,
-                //              viewModel.shouldShowMoreIndicator
-        else { return }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            //            if let nextURL = self?.viewModel.currentResponseInfo?.next,
-            //               let url = URL(string: nextURL) {
-            //                  self?.viewModel.fetchPictures(url)
-            
+        guard elementKind == UICollectionView.elementKindSectionFooter,
+                              !viewModel.isLoadingPictures,
+                              viewModel.shouldShowMoreIndicator
+        else { 
             // if there is nothing to fetch
             view.removeFromSuperview()
-            self?.rootView.collectionView.scrollToLastItem()
+            self.rootView.collectionView.scrollToLastItem()
+            return
         }
         
+        subject.send(.onScrollPaginated)
     }
 }
 

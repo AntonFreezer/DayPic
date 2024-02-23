@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,7 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
 
     }
-
-
+    
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        KingfisherManager.shared.cache.clearMemoryCache()
+    }
+ 
 }
 

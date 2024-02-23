@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import NasaNetwork
 
 final class PictureDetailCoordinator<R: PicturesRouter> {
-    let picture: Picture
+    let picture: NasaPictureEntity
     let router: R
 
-    init(picture: Picture, router: R) {
+    init(picture: NasaPictureEntity, router: R) {
         self.picture = picture
         self.router = router
     }

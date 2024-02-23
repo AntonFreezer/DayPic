@@ -24,9 +24,10 @@ extension UIImageView {
                 placeholder: UIImage(named: "DefaultImagePlaceholder"),
                 options: [
                     .processor(processor),
+                    .cacheSerializer(FormatIndicatedCacheSerializer.png),
                     .scaleFactor(self.window?.windowScene?.screen.scale ?? .leastNonzeroMagnitude),
                     .transition(.fade(1)),
-                    .cacheOriginalImage
+                    .cacheMemoryOnly
                 ]
             )
         }
