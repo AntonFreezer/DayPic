@@ -55,7 +55,40 @@
 		96873EBD2B854CB900EA911F /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96873EBC2B854CB900EA911F /* SearchViewModel.swift */; };
 		96873EBF2B854E1800EA911F /* SearchTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96873EBE2B854E1800EA911F /* SearchTransition.swift */; };
 		96873EC12B854F3200EA911F /* SearchFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96873EC02B854F3200EA911F /* SearchFlow.swift */; };
+		968D982A2B878B3700A36964 /* NasaNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 968D98262B878B1F00A36964 /* NasaNetwork.framework */; };
+		968D982B2B878B3700A36964 /* NasaNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 968D98262B878B1F00A36964 /* NasaNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		968D98252B878B1F00A36964 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 968D98202B878B1F00A36964 /* NasaNetwork.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 968D98082B878B1F00A36964;
+			remoteInfo = NasaNetwork;
+		};
+		968D98272B878B1F00A36964 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 968D98202B878B1F00A36964 /* NasaNetwork.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 968D98102B878B1F00A36964;
+			remoteInfo = NasaNetworkTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		968D982C2B878B3700A36964 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				968D982B2B878B3700A36964 /* NasaNetwork.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		965349702B7E29AE000611FB /* DayPic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayPic.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +139,7 @@
 		96873EBC2B854CB900EA911F /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		96873EBE2B854E1800EA911F /* SearchTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTransition.swift; sourceTree = "<group>"; };
 		96873EC02B854F3200EA911F /* SearchFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlow.swift; sourceTree = "<group>"; };
+		968D98202B878B1F00A36964 /* NasaNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NasaNetwork.xcodeproj; path = NasaNetwork/NasaNetwork.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +149,7 @@
 			files = (
 				965349A92B7E353F000611FB /* Kingfisher in Frameworks */,
 				965349A62B7E352C000611FB /* SnapKit in Frameworks */,
+				968D982A2B878B3700A36964 /* NasaNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,8 +159,10 @@
 		965349672B7E29AE000611FB = {
 			isa = PBXGroup;
 			children = (
+				968D98202B878B1F00A36964 /* NasaNetwork.xcodeproj */,
 				965349722B7E29AE000611FB /* DayPic */,
 				965349712B7E29AE000611FB /* Products */,
+				968D98292B878B3700A36964 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -472,6 +509,22 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
+		968D98212B878B1F00A36964 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				968D98262B878B1F00A36964 /* NasaNetwork.framework */,
+				968D98282B878B1F00A36964 /* NasaNetworkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		968D98292B878B3700A36964 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -482,6 +535,7 @@
 				9653496C2B7E29AE000611FB /* Sources */,
 				9653496D2B7E29AE000611FB /* Frameworks */,
 				9653496E2B7E29AE000611FB /* Resources */,
+				968D982C2B878B3700A36964 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -527,12 +581,35 @@
 			);
 			productRefGroup = 965349712B7E29AE000611FB /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 968D98212B878B1F00A36964 /* Products */;
+					ProjectRef = 968D98202B878B1F00A36964 /* NasaNetwork.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				9653496F2B7E29AE000611FB /* DayPic */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		968D98262B878B1F00A36964 /* NasaNetwork.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = NasaNetwork.framework;
+			remoteRef = 968D98252B878B1F00A36964 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		968D98282B878B1F00A36964 /* NasaNetworkTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = NasaNetworkTests.xctest;
+			remoteRef = 968D98272B878B1F00A36964 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9653496E2B7E29AE000611FB /* Resources */ = {
