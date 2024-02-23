@@ -9,28 +9,71 @@ import XCTest
 @testable import NasaNetwork
 
 final class NasaNetworkTests: XCTestCase {
-
+    
+    var sut: DefaultNasaNetworkClient!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        try super.setUpWithError()
+        sut = DefaultNasaNetworkClient(
+            baseURL: "https://api.nasa.gov")
     }
-
+    
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
+        try super.tearDownWithError()
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    /// Test to verify the retrieval of the picture of the day from NASA APOD API.
+    func testPictureOfTheDayRequest() {
+        
+        // Determine the current date and timezone offset based on Daylight Saving Time periods for NASA APOD API
+        // FYI - https://github.com/nasa/apod-api/issues/26
+        let timeZone = TimeZone(identifier: "EST")!
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = timeZone
+        
+        let expectation = expectation(description: "APOD response")
+        Task {
+            let result = await sut.sendRequest(request: NasaAPODRequest())
+            expectation.fulfill()
+            
+            guard let value = try? result.get() else {
+                XCTAssert(false)
+                return
+            }
+            
+            let easternAmericaCurrentDateString = formatter.string(from: Date.now)
+            XCTAssertEqual(easternAmericaCurrentDateString, value.date)
         }
+        wait(for: [expectation], timeout: 10)
     }
-
+    
+    /// Test to verify the retrieval of the picture from NASA APOD API with date query provided.
+    func testPictureOfTheDayRequestWithDate() {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = .autoupdatingCurrent
+        let threeDaysAgo = Calendar.current.date(byAdding: .day, value: -3, to: Date.now)
+        let threeDaysAgoDate = formatter.string(from: threeDaysAgo!)
+        
+        let expectation = expectation(description: "APOD with date response")
+        Task {
+            let result = await sut.sendRequest(
+                request: NasaAPODRequest(
+                    date: threeDaysAgoDate
+                )
+            )
+            expectation.fulfill()
+            
+            guard let value = try? result.get() else {
+                XCTAssert(false)
+                return
+            }
+            
+            XCTAssertEqual(threeDaysAgoDate, value.date)
+        }
+        wait(for: [expectation], timeout: 10)
+    }
 }

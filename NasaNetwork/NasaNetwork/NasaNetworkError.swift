@@ -8,7 +8,15 @@
 import Foundation
 
 public enum NasaNetworkError: Error {
-    case invalidDecoding
     case invalidURL
+    case invalidApiKey
+    case invalidDecoding
+    case invalidErrorDecoding
     case failedRequest
+    case networkError(NasaNetworkErrorEntity?, URLError?)
+}
+
+public struct NasaNetworkErrorEntity: Decodable {
+    let code: Int
+    let msg: String
 }

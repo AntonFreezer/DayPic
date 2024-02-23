@@ -16,5 +16,5 @@ public protocol NasaNetworkRequest {
     
     var url: String { get }
     var method: NasaHTTPMethod { get }
-    var parameters: [String: Any] { get }
+    var parameters: [String: Any] { get } // 'Any' to allow nil or [String]
 }
