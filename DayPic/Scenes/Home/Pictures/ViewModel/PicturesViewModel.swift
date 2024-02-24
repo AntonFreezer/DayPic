@@ -108,7 +108,7 @@ final class PicturesViewModel: NSObject, ViewModelType {
             byAdding: .day, value: -amount,
             to: apodDateFormatter.date(from: dateString)!),
                 startDate > earliestPossiblePictureDate else { return }
-        
+
         currentEarliestPictureDate = startDate
         
         let endDate = Calendar.current.date(

@@ -7,12 +7,13 @@
 
 import UIKit
 import Combine
+import NasaNetwork
 
 final class SearchViewController: GenericViewController<SearchView> {
     
     //MARK: - Properties
-    private typealias DataSource = UICollectionViewDiffableDataSource<SearchViewModel.Section, Picture>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<SearchViewModel.Section, Picture>
+    private typealias DataSource = UICollectionViewDiffableDataSource<SearchViewModel.Section, NasaLibraryItem>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<SearchViewModel.Section, NasaLibraryItem>
     
     private var dataSource: DataSource!
     
@@ -43,27 +44,48 @@ final class SearchViewController: GenericViewController<SearchView> {
         configureDataSource()
         setupView()
         bindViewModel()
-        
-        subject.send(.viewDidLoad)
     }
     
     private func setupView() {
         rootView.collectionView.delegate = self
         rootView.backgroundColor = .black
+        rootView.searchBar.searchTextField.becomeFirstResponder()
     }
     
     private func bindViewModel() {
-        viewModel.transform(input: output).sink { [unowned self] event in
-            switch event {
-            case .didLoadPictures:
-                self.applyShapshot()
-            }
+        viewModel.transform(input: output)
+            .receive(on: RunLoop.main)
+            .sink { [unowned self] event in
+                self.hideLoading()
+                switch event {
+                case .didLoadPictures:
+                    self.applyShapshot()
+                case .didReceiveError(let error):
+                    self.showError(error)
+                    self.rootView.collectionView.scrollToLastItem()
+                }
+            }.store(in: &cancellables)
+        
+        bindToSearchTextField()
+    }
+    
+    private func bindToSearchTextField() {
+        rootView.searchBar.searchTextField.textPublisher
+            .debounce(for: 0.5, scheduler: RunLoop.main)
+            .sink { [unowned self] prompt in
+            subject.send(.didEnterSearchPrompt(prompt: prompt))
         }.store(in: &cancellables)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+    }
+    
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        subject.send(.viewIsAppearing)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -71,19 +93,29 @@ final class SearchViewController: GenericViewController<SearchView> {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    private func showError(_ error: Error) {
+        self.showError(
+            String(localized: "Couldn't load pictures"),
+            message: error.localizedDescription,
+            actionTitle: String(localized: "OK"),
+            action: { stub in
+                stub.removeFromSuperview()
+            }
+        )
+    }
 }
 
 //MARK: - UICollectionViewDiffableDataSource && Snapshot
 private extension SearchViewController {
     func configureDataSource() {
         
-        dataSource = DataSource(collectionView: rootView.collectionView, cellProvider: { (collectionView, indexPath, picture) -> UICollectionViewCell? in
+        dataSource = DataSource(collectionView: rootView.collectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PictureCollectionViewCell.cellIdentifier, for: indexPath) as? PictureCollectionViewCell
             
             cell?.configure(with: PictureCollectionViewCellViewModel(
-                pictureTitle: picture.title,
-                pictureImageURL: URL(string: picture.imageURL))
+                pictureTitle: item.data.first?.title ?? "",
+                pictureImageURL: item.links.first?.href)
             )
             
             return cell
@@ -93,10 +125,10 @@ private extension SearchViewController {
     }
     
     func applyShapshot(animatingDifferences: Bool = true) {
-        var snapshot = Snapshot()
-        snapshot.appendSections([.searchList])
-        snapshot.appendItems(viewModel.pictures)
-        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+            var snapshot = Snapshot()
+            snapshot.appendSections([.searchList])
+            snapshot.appendItems(viewModel.pictures, toSection: .searchList)
+            dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
 }
 
@@ -138,12 +170,16 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-//        guard viewModel.shouldShowMoreIndicator else {
-//            return .zero
-//        }
         
-        return CGSize(width: collectionView.frame.width, height: 100)
+        guard !viewModel.isLoadingPictures,
+              let nextPage = viewModel.nextPageInfo else {
+            return CGSize.zero
+        }
+        
+        return CGSize(width: collectionView.bounds.width, height: 100)
     }
+
+    
 }
 
 //MARK: - ScrollView Delegate & Pagination
@@ -151,21 +187,15 @@ extension SearchViewController: UIScrollViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
         
-        guard elementKind == UICollectionView.elementKindSectionFooter//,
-                //              !viewModel.isLoadingCharacters,
-                //              viewModel.shouldShowMoreIndicator
-        else { return }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            //            if let nextURL = self?.viewModel.currentResponseInfo?.next,
-            //               let url = URL(string: nextURL) {
-            //                  self?.viewModel.fetchPictures(url)
-            
-            // if there is nothing to fetch
-            view.removeFromSuperview()
-            self?.rootView.collectionView.scrollToLastItem()
+        guard elementKind == UICollectionView.elementKindSectionFooter,
+              !viewModel.isLoadingPictures,
+              let nextPage = viewModel.nextPageInfo
+        else {
+            rootView.collectionView.scrollToLastItem()
+            return
         }
         
+        subject.send(.onScrollPaginated(url: nextPage.href))
     }
 }
 

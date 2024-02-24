@@ -11,11 +11,16 @@ import NasaNetwork
 final class DIContainer {
     static let shared = DIContainer()
     
-    let networkService: NasaNetworkClient
+    let nasaAPODNetworkService: NasaNetworkClient
+    let nasaLibraryService: NasaNetworkClient
     
     init() {
-        self.networkService = DefaultNasaNetworkClient(
+        self.nasaAPODNetworkService = DefaultNasaNetworkClient(
             baseURL: "https://api.nasa.gov",
             apiKey: ProcessInfo.processInfo.environment["NASA_API_KEY"] ?? "")
+        
+        self.nasaLibraryService = DefaultNasaNetworkClient(
+            baseURL: "https://images-api.nasa.gov")
+        
     }
 }

@@ -7,30 +7,41 @@
 
 import UIKit
 import Combine
+import NasaNetwork
 
 final class SearchViewModel: NSObject, ViewModelType {
     typealias Router = SearchRouter
     
     //MARK: - Properties
     private(set) var router: any Router
+    private let networkService: NasaNetworkClient
     
     enum Section: CaseIterable {
         case searchList
     }
     
-    private(set) var isLoadingCharacters = false
-    private(set) var pictures: [Picture] = []
+    private var currentPrompt: String?
+    
+    private(set) var isLoadingPictures = false
+    private(set) var pictures: [NasaLibraryItem] = []
+    private(set) var currentResponseInfo: [NasaLibraryLink]? = nil
+    public var nextPageInfo: NasaLibraryLink? {
+        currentResponseInfo?.first(where: { link in
+            link.rel == "next"
+        })
+    }
     
     //MARK: - IO
     enum Input {
-        case viewDidLoad
+        case viewIsAppearing
         case didEnterSearchPrompt(prompt: String)
         case onScrollPaginated(url: URL)
-        case didSelectPicture(picture: Picture)
+        case didSelectPicture(picture: NasaLibraryItem)
     }
     
     enum Output {
         case didLoadPictures
+        case didReceiveError(error: Error)
     }
     
     var output: AnyPublisher<Output, Never> {
@@ -43,8 +54,8 @@ final class SearchViewModel: NSObject, ViewModelType {
     func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
         input.sink { [unowned self] event in
             switch event {
-            case .viewDidLoad:
-                fetchFirstPictures()
+            case .viewIsAppearing:
+                retrySearch()
                 subject.send(.didLoadPictures)
             case .didEnterSearchPrompt(let prompt):
                 fetchPictures(with: prompt)
@@ -53,100 +64,79 @@ final class SearchViewModel: NSObject, ViewModelType {
                 fetchPictures(with: url)
                 subject.send(.didLoadPictures)
             case .didSelectPicture(let picture):
-                break
-//                router.process(route: .detailScreen(picture: picture)) // different routers problem
+                router.process(route: .detailScreen(picture: picture)) // different routers problem
             }
         }.store(in: &cancellables)
         
         return output
     }
     
-    // private(set) var currentResponseInfo: GetPicturesResponse.Info? = nil
-    
-    // public var shouldShowMoreIndicator: Bool {
-    // return currentResponseInfo?.next != nil
-    // }
-    
     //MARK: - Setup && Lifecycle
-    init(router: any Router) {
+    init(router: any Router,
+         networkService: NasaNetworkClient) {
         self.router = router
+        self.networkService = networkService
     }
     
     //MARK: - Network
-    public func fetchFirstPictures() {
-        self.pictures = [
-            Picture(
-                title: "Moon2",
-                imageURL: "https://images-assets.nasa.gov/image/iss014e08916/iss014e08916~thumb.jpg",
-                description: String(repeating: "description", count: 999)),
-            Picture(
-                title: "Moon3",
-                imageURL: "https://images-assets.nasa.gov/image/PIA25626/PIA25626~thumb.jpg",
-                description: String(repeating: "description", count: 999)),
-            Picture(
-                title: "Moon4",
-                imageURL: "https://images-assets.nasa.gov/image/S69-39333/S69-39333~thumb.jpg",
-                description: String(repeating: "description ", count: 999)),
-            Picture(
-                title: "Astronaut Edwin Aldrin descends steps of Lunar Module ladder to walk on moon",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
-                description: String(repeating: "description ", count: 999)),
-            Picture(
-                title: "Moon6",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
-                description: "some description"),
-            Picture(
-                title: "Moon7",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
-                description: "some description"),
-            Picture(
-                title: "Moon8",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
-                description: "some description"),
-            Picture(
-                title: "Moon9",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
-                description: "some description"),
-            Picture(
-                title: "Moon10",
-                imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg",
-                description: "some description"),
-        ]
+    private func search(query: String) {
+        currentPrompt = query
+        fetchPictures(with: query)
+    }
+
+    private func retrySearch() {
+        guard let currentPrompt else { return }
+        fetchPictures(with: currentPrompt)
+    }
+    
+    private func fetchPictures(with prompt: String) {
+        isLoadingPictures = true
         
-        DispatchQueue.main.async {
-            self.subject.send(.didLoadPictures)
+        Task {
+            let result = await networkService.sendRequest(
+                request: NasaLibraryPictureRequest(query: prompt))
+            
+            switch result {
+            case .success(let response):
+                currentResponseInfo = response.collection.links
+                pictures = response.collection.items
+                subject.send(.didLoadPictures)
+            case .failure(let error):
+                subject.send(.didReceiveError(error: error))
+            }
+        }
+        
+        isLoadingPictures = false
+    }
+    
+    private func fetchPictures(with url: URL) {
+        isLoadingPictures = true
+        
+        Task {
+            guard let nextPageInfo else {
+                isLoadingPictures = false
+                return
+            }
+            let url = nextPageInfo.href.absoluteString
+            
+            let result = await networkService.sendRequest(
+                request: NasaLibraryPictureRequest(
+                    url: url))
+            
+            switch result {
+            case .success(let response):
+                currentResponseInfo = response.collection.links
+                pictures.append(contentsOf: response.collection.items)
+                subject.send(.didLoadPictures)
+            case .failure(let error):
+                subject.send(.didReceiveError(error: error))
+            }
+            
+            isLoadingPictures = false
         }
     }
     
-    public func fetchPictures(with prompt: String) {
-        self.pictures.append(contentsOf: [
-            Picture(title: "Moon11",
-                    imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg", description: ""),
-            Picture(title: "Moon12",
-                    imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg", description: ""),
-            Picture(title: "Moon13",
-                    imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg", description: ""),
-        ])
-
-        DispatchQueue.main.async {
-            self.subject.send(.didLoadPictures)
-        }
-    }
     
-    public func fetchPictures(with url: URL) {
-        self.pictures.append(contentsOf: [
-            Picture(title: "Moon11",
-                    imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg", description: ""),
-            Picture(title: "Moon12",
-                    imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg", description: ""),
-            Picture(title: "Moon13",
-                    imageURL: "https://images-assets.nasa.gov/image/as11-40-5868/as11-40-5868~thumb.jpg", description: ""),
-        ])
-
-        DispatchQueue.main.async {
-            self.subject.send(.didLoadPictures)
-        }
-    }
 
 }
 

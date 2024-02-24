@@ -17,7 +17,7 @@ final class PicturesCoordinator<R: PicturesRouter> {
     private lazy var primaryViewController: UIViewController = {
         let viewModel = PicturesViewModel(
             router: router,
-            networkService: DIContainer.shared.networkService)
+            networkService: DIContainer.shared.nasaAPODNetworkService)
         let viewController = PicturesViewController(viewModel: viewModel)
         return viewController
     }()

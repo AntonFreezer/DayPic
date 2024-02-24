@@ -162,8 +162,6 @@ extension PicturesViewController: UIScrollViewDelegate {
                               !viewModel.isLoadingPictures,
                               viewModel.shouldShowMoreIndicator
         else { 
-            // if there is nothing to fetch
-            view.removeFromSuperview()
             self.rootView.collectionView.scrollToLastItem()
             return
         }
