@@ -14,9 +14,9 @@ public protocol NasaNetworkClient: Actor {
 public actor DefaultNasaNetworkClient: NasaNetworkClient {
     
     private let baseURL: String
-    private var apiKey: String
+    private var apiKey: String?
     
-    public init(baseURL: String, apiKey: String = "DEMO_KEY") {
+    public init(baseURL: String, apiKey: String? = nil) {
         self.baseURL = baseURL
         self.apiKey = apiKey
     }
@@ -32,9 +32,11 @@ public actor DefaultNasaNetworkClient: NasaNetworkClient {
             urlComponents.queryItems = []
         }
         
-        urlComponents.queryItems?.append(URLQueryItem(
-            name: "api_key",
-            value: self.apiKey))
+        if let apiKey {
+            urlComponents.queryItems?.append(URLQueryItem(
+                name: "api_key",
+                value: self.apiKey))
+        }
         
         if !request.parameters.isEmpty {
             var additionalQueryItems = request.parameters.compactMap { item -> URLQueryItem? in
