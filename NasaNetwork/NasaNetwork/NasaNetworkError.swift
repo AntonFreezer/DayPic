@@ -13,6 +13,7 @@ public enum NasaNetworkError: Error {
     case invalidDecoding
     case invalidErrorDecoding
     case failedRequest
+    case resourceNotFound
     case networkError(NasaNetworkErrorEntity?, URLError?)
 }
 

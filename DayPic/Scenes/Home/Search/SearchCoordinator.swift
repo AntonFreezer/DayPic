@@ -15,7 +15,8 @@ final class SearchCoordinator<R: SearchRouter> {
     }
 
     private lazy var primaryViewController: UIViewController = {
-        let viewModel = SearchViewModel(router: router)
+        let viewModel = SearchViewModel(router: router,
+                                        networkService: DIContainer.shared.nasaLibraryService)
         let viewController = SearchViewController(viewModel: viewModel)
         return viewController
     }()

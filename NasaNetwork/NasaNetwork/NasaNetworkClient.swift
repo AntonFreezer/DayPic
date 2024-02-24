@@ -14,9 +14,9 @@ public protocol NasaNetworkClient: Actor {
 public actor DefaultNasaNetworkClient: NasaNetworkClient {
     
     private let baseURL: String
-    private var apiKey: String
+    private var apiKey: String?
     
-    public init(baseURL: String, apiKey: String = "DEMO_KEY") {
+    public init(baseURL: String, apiKey: String? = nil) {
         self.baseURL = baseURL
         self.apiKey = apiKey
     }
@@ -32,9 +32,16 @@ public actor DefaultNasaNetworkClient: NasaNetworkClient {
             urlComponents.queryItems = []
         }
         
-        urlComponents.queryItems?.append(URLQueryItem(
-            name: "api_key",
-            value: self.apiKey))
+        // FYI
+        // it does return http scheme in pagination, see
+        // https://images-api.nasa.gov/search?page_size=10&media_type=image&page=2&q=Moon
+        urlComponents.scheme = "https"
+        
+        if let apiKey {
+            urlComponents.queryItems?.append(URLQueryItem(
+                name: "api_key",
+                value: apiKey))
+        }
         
         if !request.parameters.isEmpty {
             var additionalQueryItems = request.parameters.compactMap { item -> URLQueryItem? in
@@ -81,8 +88,14 @@ public actor DefaultNasaNetworkClient: NasaNetworkClient {
                 }
                 return .success(decoded)
                 
+            case 400:
+                return .failure(.failedRequest)
+                
             case 401, 403:
                 return .failure(.invalidApiKey)
+                
+            case 404:
+                return .failure(.resourceNotFound)
                 
             default:
                 guard let decoded = try? decoder.decode(NasaNetworkErrorEntity.self, from: data) 
