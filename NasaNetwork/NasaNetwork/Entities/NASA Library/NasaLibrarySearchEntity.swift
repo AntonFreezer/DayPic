@@ -10,41 +10,33 @@ import Foundation
 import Foundation
 
 // MARK: - SearchResponse
-struct SearchResponse: Decodable {
-    let collection: Collection
+public struct NasaLibrarySearchEntity: Decodable {
+    public let collection: NasaLibraryCollection
 }
 
 // MARK: - Collection
-struct Collection: Decodable {
-    let version: String
-    let href: URL
-    let items: [Item]
-    let links: [Link]
+public struct NasaLibraryCollection: Decodable {
+    public let items: [NasaLibraryItem]
+    public let links: [NasaLibraryLink]
 }
 
 // MARK: - Item
-struct Item: Decodable {
-    let href: URL
-    let data: [Data]
-    let links: [Link]
+public struct NasaLibraryItem: Decodable {
+    public let data: [NasaLibraryData]
+    public let links: [NasaLibraryLink]
 }
 
 // MARK: - Data
-struct Data: Decodable {
-    let center: String
-    let dateCreated: Date
-    let description: String
-    let description508: String?
-    let keywords: [String]?
-    let mediaType: String
-    let nasaId: String
-    let secondaryCreator: String?
-    let title: String
+public struct NasaLibraryData: Decodable {
+    public let description: String
+    public let keywords: [String]?
+    public let mediaType: String
+    public let nasaId: String
+    public let title: String
 }
 
 // MARK: - Link
-struct Link: Decodable {
-    let href: URL
-    let rel: String
-    let render: String?
+public struct NasaLibraryLink: Decodable {
+    public let href: URL
+    public let rel: String
 }
