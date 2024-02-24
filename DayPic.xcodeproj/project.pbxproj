@@ -32,7 +32,6 @@
 		965349CE2B7E643F000611FB /* PicturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349CD2B7E643F000611FB /* PicturesViewController.swift */; };
 		965349D02B7E6B87000611FB /* PicturesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349CF2B7E6B87000611FB /* PicturesViewModel.swift */; };
 		965349D22B7E6C2D000611FB /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349D12B7E6C2D000611FB /* ViewModelType.swift */; };
-		965349D72B7E6E9E000611FB /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349D62B7E6E9E000611FB /* Picture.swift */; };
 		965349D92B7E778C000611FB /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349D82B7E778C000611FB /* Coordinator.swift */; };
 		965349DB2B7E77AF000611FB /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349DA2B7E77AF000611FB /* Router.swift */; };
 		965349DF2B7E9EF5000611FB /* UDService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965349DE2B7E9EF5000611FB /* UDService.swift */; };
@@ -51,6 +50,7 @@
 		96534A0D2B834141000611FB /* PictureDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96534A0C2B834141000611FB /* PictureDetailViewModel.swift */; };
 		96534A0F2B83414C000611FB /* PictureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96534A0E2B83414B000611FB /* PictureDetailView.swift */; };
 		96534A142B834875000611FB /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96534A132B834875000611FB /* UIView+Extension.swift */; };
+		9679FF8A2B8A671F0065075F /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679FF892B8A671F0065075F /* UITextField+Extension.swift */; };
 		96873EB62B854B8B00EA911F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96873EB52B854B8B00EA911F /* SearchView.swift */; };
 		96873EBB2B854C8800EA911F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96873EBA2B854C8800EA911F /* SearchViewController.swift */; };
 		96873EBD2B854CB900EA911F /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96873EBC2B854CB900EA911F /* SearchViewModel.swift */; };
@@ -117,7 +117,6 @@
 		965349CD2B7E643F000611FB /* PicturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesViewController.swift; sourceTree = "<group>"; };
 		965349CF2B7E6B87000611FB /* PicturesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesViewModel.swift; sourceTree = "<group>"; };
 		965349D12B7E6C2D000611FB /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
-		965349D62B7E6E9E000611FB /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		965349D82B7E778C000611FB /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		965349DA2B7E77AF000611FB /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		965349DE2B7E9EF5000611FB /* UDService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDService.swift; sourceTree = "<group>"; };
@@ -136,6 +135,7 @@
 		96534A0C2B834141000611FB /* PictureDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureDetailViewModel.swift; sourceTree = "<group>"; };
 		96534A0E2B83414B000611FB /* PictureDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureDetailView.swift; sourceTree = "<group>"; };
 		96534A132B834875000611FB /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		9679FF892B8A671F0065075F /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		96873EB52B854B8B00EA911F /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		96873EBA2B854C8800EA911F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		96873EBC2B854CB900EA911F /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -235,6 +235,7 @@
 				965349FA2B7FEA7E000611FB /* UIImageView+Extension.swift */,
 				96534A032B82A64C000611FB /* UICollectionView+Extension.swift */,
 				96534A132B834875000611FB /* UIView+Extension.swift */,
+				9679FF892B8A671F0065075F /* UITextField+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -409,25 +410,8 @@
 			children = (
 				96204F832B88BB090092AB04 /* DIContainer */,
 				965349DD2B7E9EE3000611FB /* UDService */,
-				965349D42B7E6E28000611FB /* NasaService */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		965349D42B7E6E28000611FB /* NasaService */ = {
-			isa = PBXGroup;
-			children = (
-				965349D52B7E6E87000611FB /* Models */,
-			);
-			path = NasaService;
-			sourceTree = "<group>";
-		};
-		965349D52B7E6E87000611FB /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				965349D62B7E6E9E000611FB /* Picture.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		965349DC2B7E7918000611FB /* Flows */ = {
@@ -653,11 +637,11 @@
 				96873EBB2B854C8800EA911F /* SearchViewController.swift in Sources */,
 				96873EBD2B854CB900EA911F /* SearchViewModel.swift in Sources */,
 				96204F852B88BB150092AB04 /* DIContainer.swift in Sources */,
-				965349D72B7E6E9E000611FB /* Picture.swift in Sources */,
 				965349EE2B7FAF05000611FB /* TabBarCoordinator.swift in Sources */,
 				96873EBF2B854E1800EA911F /* SearchTransition.swift in Sources */,
 				96534A142B834875000611FB /* UIView+Extension.swift in Sources */,
 				96534A042B82A64C000611FB /* UICollectionView+Extension.swift in Sources */,
+				9679FF8A2B8A671F0065075F /* UITextField+Extension.swift in Sources */,
 				965349D02B7E6B87000611FB /* PicturesViewModel.swift in Sources */,
 				965349B82B7E454F000611FB /* Loadable.swift in Sources */,
 				965349E32B7EB133000611FB /* AppFlow.swift in Sources */,

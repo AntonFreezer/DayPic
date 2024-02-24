@@ -7,6 +7,13 @@
 
 import Foundation
 
+protocol Picture: Hashable, Equatable {
+    var date: String { get }
+    var description: String { get }
+    var title: String { get }
+    var url: String { get }
+}
+
 enum SearchTransition {
     case initialScreen
 //    case detailScreen(picture: Picture)

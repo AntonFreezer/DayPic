@@ -64,7 +64,8 @@ final class SearchViewModel: NSObject, ViewModelType {
                 fetchPictures(with: url)
                 subject.send(.didLoadPictures)
             case .didSelectPicture(let picture):
-                router.process(route: .detailScreen(picture: picture)) // different routers problem
+                break
+//                router.process(route: .detailScreen(picture: picture)) // different routers problem
             }
         }.store(in: &cancellables)
         
