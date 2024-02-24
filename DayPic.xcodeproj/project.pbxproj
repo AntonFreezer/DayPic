@@ -60,13 +60,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		960B949E2B8A0DCD009EA341 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 968D98202B878B1F00A36964 /* NasaNetwork.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 967EF56D2B89F73700E0A0C9;
-			remoteInfo = NasaLibraryTests;
-		};
 		968D98252B878B1F00A36964 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 968D98202B878B1F00A36964 /* NasaNetwork.xcodeproj */;
@@ -520,8 +513,7 @@
 			isa = PBXGroup;
 			children = (
 				968D98262B878B1F00A36964 /* NasaNetwork.framework */,
-				968D98282B878B1F00A36964 /* NasaNetworkTests.xctest */,
-				960B949F2B8A0DCD009EA341 /* NasaLibraryTests.xctest */,
+				968D98282B878B1F00A36964 /* NasaApodTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -603,13 +595,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		960B949F2B8A0DCD009EA341 /* NasaLibraryTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = NasaLibraryTests.xctest;
-			remoteRef = 960B949E2B8A0DCD009EA341 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		968D98262B878B1F00A36964 /* NasaNetwork.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -617,10 +602,10 @@
 			remoteRef = 968D98252B878B1F00A36964 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		968D98282B878B1F00A36964 /* NasaNetworkTests.xctest */ = {
+		968D98282B878B1F00A36964 /* NasaApodTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = NasaApodTests.xctest;
+			path = NasaNetworkTests.xctest;
 			remoteRef = 968D98272B878B1F00A36964 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
