@@ -18,6 +18,7 @@ final class DIContainer {
         self.nasaAPODNetworkService = DefaultNasaNetworkClient(
             baseURL: "https://api.nasa.gov",
             apiKey: ProcessInfo.processInfo.environment["NASA_API_KEY"] ?? "")
+
         
         self.nasaLibraryService = DefaultNasaNetworkClient(
             baseURL: "https://images-api.nasa.gov")
