@@ -21,13 +21,13 @@ public struct NasaLibraryCollection: Decodable {
 }
 
 // MARK: - Item
-public struct NasaLibraryItem: Decodable {
+public struct NasaLibraryItem: Decodable, Hashable, Equatable {
     public let data: [NasaLibraryData]
     public let links: [NasaLibraryLink]
 }
 
 // MARK: - Data
-public struct NasaLibraryData: Decodable {
+public struct NasaLibraryData: Decodable, Hashable, Equatable {
     public let description: String
     public let keywords: [String]?
     public let mediaType: String
@@ -36,7 +36,7 @@ public struct NasaLibraryData: Decodable {
 }
 
 // MARK: - Link
-public struct NasaLibraryLink: Decodable {
+public struct NasaLibraryLink: Decodable, Hashable, Equatable {
     public let href: URL
     public let rel: String
 }
