@@ -16,6 +16,6 @@ final class DIContainer {
     init() {
         self.networkService = DefaultNasaNetworkClient(
             baseURL: "https://api.nasa.gov",
-            apiKey: "VYw1dDPTVePJfhc2fb71lXZWJZIk5f3wgSxV9JXu")
+            apiKey: ProcessInfo.processInfo.environment["NASA_API_KEY"] ?? "")
     }
 }
