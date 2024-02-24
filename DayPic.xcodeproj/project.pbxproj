@@ -524,7 +524,7 @@
 			isa = PBXGroup;
 			children = (
 				968D98262B878B1F00A36964 /* NasaNetwork.framework */,
-				968D98282B878B1F00A36964 /* NasaNetworkTests.xctest */,
+				968D98282B878B1F00A36964 /* NasaApodTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -613,7 +613,7 @@
 			remoteRef = 968D98252B878B1F00A36964 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		968D98282B878B1F00A36964 /* NasaNetworkTests.xctest */ = {
+		968D98282B878B1F00A36964 /* NasaApodTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = NasaNetworkTests.xctest;
