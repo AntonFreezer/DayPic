@@ -83,8 +83,14 @@ public actor DefaultNasaNetworkClient: NasaNetworkClient {
                 }
                 return .success(decoded)
                 
+            case 400:
+                return .failure(.failedRequest)
+                
             case 401, 403:
                 return .failure(.invalidApiKey)
+                
+            case 404:
+                return .failure(.resourceNotFound)
                 
             default:
                 guard let decoded = try? decoder.decode(NasaNetworkErrorEntity.self, from: data) 
