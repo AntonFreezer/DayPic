@@ -32,10 +32,15 @@ public actor DefaultNasaNetworkClient: NasaNetworkClient {
             urlComponents.queryItems = []
         }
         
+        // FYI
+        // it does return http scheme in pagination, see
+        // https://images-api.nasa.gov/search?page_size=10&media_type=image&page=2&q=Moon
+        urlComponents.scheme = "https"
+        
         if let apiKey {
             urlComponents.queryItems?.append(URLQueryItem(
                 name: "api_key",
-                value: self.apiKey))
+                value: apiKey))
         }
         
         if !request.parameters.isEmpty {
