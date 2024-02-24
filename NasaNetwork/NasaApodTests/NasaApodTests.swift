@@ -1,6 +1,6 @@
 //
-//  NasaNetworkTests.swift
-//  NasaNetworkTests
+//  NasaApodTests.swift
+//  NasaApodTests
 //
 //  Created by Anton Kholodkov on 22.02.2024.
 //
@@ -8,14 +8,16 @@
 import XCTest
 @testable import NasaNetwork
 
-final class NasaNetworkTests: XCTestCase {
+final class NasaApodTests: XCTestCase {
     
     var sut: NasaNetworkClient!
     
     override func setUpWithError() throws {
         try super.setUpWithError()
         sut = DefaultNasaNetworkClient(
-            baseURL: "https://api.nasa.gov")
+            baseURL: "https://api.nasa.gov",
+            apiKey: "DEMO_KEY"
+        )
     }
     
     override func tearDownWithError() throws {
