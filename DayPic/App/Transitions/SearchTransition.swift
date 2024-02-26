@@ -7,16 +7,9 @@
 
 import Foundation
 
-protocol Picture: Hashable, Equatable {
-    var date: String { get }
-    var description: String { get }
-    var title: String { get }
-    var url: String { get }
-}
-
 enum SearchTransition {
     case initialScreen
-//    case detailScreen(picture: Picture)
+    case detailScreen(picture: PictureRepresentable)
     
     var identifier: String { "\(self)" }
     
@@ -24,10 +17,9 @@ enum SearchTransition {
         switch self {
         case .initialScreen:
             return SearchCoordinator(router: router)
-//        case .detailScreen(let picture):
-//            return PictureDetailCoordinator(picture: picture, router: router) // routers are different
+        case .detailScreen(let picture):
+            return PictureDetailCoordinator(picture: picture, router: router)
         }
     }
-    
     
 }

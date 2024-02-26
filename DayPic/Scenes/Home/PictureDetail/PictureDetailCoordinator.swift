@@ -8,11 +8,11 @@
 import UIKit
 import NasaNetwork
 
-final class PictureDetailCoordinator<R: PicturesRouter> {
-    let picture: NasaPictureEntity
+final class PictureDetailCoordinator<R: Routable> {
+    let picture: PictureRepresentable
     let router: R
 
-    init(picture: NasaPictureEntity, router: R) {
+    init(picture: PictureRepresentable, router: R) {
         self.picture = picture
         self.router = router
     }

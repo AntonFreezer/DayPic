@@ -9,10 +9,10 @@ import UIKit
 import Combine
 import NasaNetwork
 
-final class SearchViewModel: NSObject, ViewModelType {
-    typealias Router = SearchRouter
+final class SearchViewModel: NSObject, IOViewModelType {
     
     //MARK: - Properties
+    typealias Router = SearchRouter
     private(set) var router: any Router
     private let networkService: NasaNetworkClient
     
@@ -31,7 +31,20 @@ final class SearchViewModel: NSObject, ViewModelType {
         })
     }
     
-    //MARK: - IO
+    private let subject = PassthroughSubject<Output, Never>()
+    var output: AnyPublisher<Output, Never> {
+        return subject.eraseToAnyPublisher()
+    }
+    
+    var cancellables = Set<AnyCancellable>()
+    
+    //MARK: - Setup && Lifecycle
+    init(router: any Router, networkService: NasaNetworkClient) {
+        self.router = router
+        self.networkService = networkService
+    }
+
+    //MARK: - IO    
     enum Input {
         case viewIsAppearing
         case didEnterSearchPrompt(prompt: String)
@@ -43,13 +56,6 @@ final class SearchViewModel: NSObject, ViewModelType {
         case didLoadPictures
         case didReceiveError(error: Error)
     }
-    
-    var output: AnyPublisher<Output, Never> {
-        return subject.eraseToAnyPublisher()
-    }
-    private let subject = PassthroughSubject<Output, Never>()
-    
-    var cancellables = Set<AnyCancellable>()
     
     func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
         input.sink { [unowned self] event in
@@ -64,27 +70,22 @@ final class SearchViewModel: NSObject, ViewModelType {
                 fetchPictures(with: url)
                 subject.send(.didLoadPictures)
             case .didSelectPicture(let picture):
-                break
-//                router.process(route: .detailScreen(picture: picture)) // different routers problem
+                router.process(route: .detailScreen(picture: picture))
             }
         }.store(in: &cancellables)
         
         return output
     }
+}
+
+//MARK: - Network
+extension SearchViewModel {
     
-    //MARK: - Setup && Lifecycle
-    init(router: any Router,
-         networkService: NasaNetworkClient) {
-        self.router = router
-        self.networkService = networkService
-    }
-    
-    //MARK: - Network
     private func search(query: String) {
         currentPrompt = query
         fetchPictures(with: query)
     }
-
+    
     private func retrySearch() {
         guard let currentPrompt else { return }
         fetchPictures(with: currentPrompt)
@@ -137,8 +138,5 @@ final class SearchViewModel: NSObject, ViewModelType {
         }
     }
     
-    
-
 }
-
 

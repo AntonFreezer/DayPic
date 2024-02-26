@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol PicturesViewRendering: ViewModelType {
+protocol PicturesViewRendering: BasicViewModelType {
     func createPictureOfTheDaySectionLayout() -> NSCollectionLayoutSection
     func createPicturesListLayout() -> NSCollectionLayoutSection
 }

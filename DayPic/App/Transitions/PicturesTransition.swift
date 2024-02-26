@@ -10,7 +10,7 @@ import NasaNetwork
 
 enum PicturesTransition {
     case initialScreen
-    case detailScreen(picture: NasaPictureEntity)
+    case detailScreen(picture: PictureRepresentable)
 
     var identifier: String { "\(self)" }
 

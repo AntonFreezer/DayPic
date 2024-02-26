@@ -9,10 +9,10 @@ import UIKit
 import Combine
 import NasaNetwork
 
-final class PicturesViewModel: NSObject, ViewModelType {
-    typealias Router = PicturesRouter
+final class PicturesViewModel: NSObject, IOViewModelType {
     
     //MARK: - Properties
+    typealias Router = PicturesRouter
     private(set) var router: any Router
     private let networkService: NasaNetworkClient
     
@@ -40,6 +40,20 @@ final class PicturesViewModel: NSObject, ViewModelType {
         return currentEarliestPictureDate >= earliestPossiblePictureDate
     }
     
+    private let subject = PassthroughSubject<Output, Never>()
+    var output: AnyPublisher<Output, Never> {
+        return subject.eraseToAnyPublisher()
+    }
+    
+    var cancellables = Set<AnyCancellable>()
+    
+    //MARK: - Setup && Lifecycle
+    init(router: any Router, networkService: NasaNetworkClient) {
+        self.router = router
+        self.networkService = networkService
+    }
+    
+    
     //MARK: - IO
     enum Input {
         case viewDidLoad
@@ -52,24 +66,14 @@ final class PicturesViewModel: NSObject, ViewModelType {
         case didReceiveError(Error)
     }
     
-    var output: AnyPublisher<Output, Never> {
-        return subject.eraseToAnyPublisher()
-    }
-    private let subject = PassthroughSubject<Output, Never>()
-    
-    var cancellables = Set<AnyCancellable>()
-    
     func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
         input.sink { [unowned self] event in
             switch event {
             case .viewDidLoad:
                 fetchFirstAndSubsequentPictures()
             case .onScrollPaginated:
-                if let currentEarliestPictureDate {
-                    fetchSubsequentPictures(
-                        fromDate: apodDateFormatter.string(from: currentEarliestPictureDate),
-                        amount: 10)
-                }
+                fetchSubsequentPictures(fromDate: currentEarliestPictureDate,
+                                        amount: 10)
                 subject.send(.didLoadPictures)
             case .didSelectPicture(let picture):
                 router.process(route: .detailScreen(picture: picture))
@@ -79,13 +83,9 @@ final class PicturesViewModel: NSObject, ViewModelType {
         return output
     }
     
-    //MARK: - Setup && Lifecycle
-    init(router: any Router, networkService: NasaNetworkClient) {
-        self.router = router
-        self.networkService = networkService
-    }
-    
-    //MARK: - Network
+}
+//MARK: - Network
+extension PicturesViewModel {
     private func fetchFirstAndSubsequentPictures() {
         isLoadingPictures = true
         Task {
@@ -94,26 +94,28 @@ final class PicturesViewModel: NSObject, ViewModelType {
             switch result {
             case .success(let response):
                 pictureOfTheDay = [response]
-                fetchSubsequentPictures(fromDate: response.date, amount: 10)
+                currentEarliestPictureDate = apodDateFormatter.date(from: response.date)
+                fetchSubsequentPictures(fromDate: currentEarliestPictureDate!, amount: 10)
             case .failure(let error):
                 subject.send(.didReceiveError(error))
             }
         }
     }
     
-    private func fetchSubsequentPictures(fromDate dateString: String, amount: Int) {
+    private func fetchSubsequentPictures(fromDate date: Date?, amount: Int) {
         isLoadingPictures = true
         
-        guard let startDate = Calendar.current.date(
-            byAdding: .day, value: -amount,
-            to: apodDateFormatter.date(from: dateString)!),
-                startDate > earliestPossiblePictureDate else { return }
-
+        guard let date,
+              let startDate = Calendar.current.date(
+                byAdding: .day, value: -amount,
+                to: date),
+              startDate > earliestPossiblePictureDate else { return }
+        
         currentEarliestPictureDate = startDate
         
         let endDate = Calendar.current.date(
             byAdding: .day, value: -1,
-            to: apodDateFormatter.date(from: dateString)!)!
+            to: date) ?? startDate
         
         let startDateString = apodDateFormatter.string(from: startDate)
         let endDateString = apodDateFormatter.string(from: endDate)

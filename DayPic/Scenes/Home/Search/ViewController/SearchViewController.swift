@@ -172,7 +172,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         
         guard !viewModel.isLoadingPictures,
-              let nextPage = viewModel.nextPageInfo else {
+              viewModel.nextPageInfo != nil else {
             return CGSize.zero
         }
         
