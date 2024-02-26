@@ -24,7 +24,7 @@ final class NasaLibraryTests: XCTestCase {
     }
     
     /// Test to verify the retrieval of the picture by query from the NASA Image and Video Library API.
-    func testPictureOfTheDayRequest() {
+    func testPicturesPaginatedRequest() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = .autoupdatingCurrent
