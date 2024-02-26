@@ -28,6 +28,7 @@ public struct NasaLibraryItem: Decodable, Hashable, Equatable {
 
 // MARK: - Data
 public struct NasaLibraryData: Decodable, Hashable, Equatable {
+    public let dateCreated: String
     public let description: String
     public let keywords: [String]?
     public let mediaType: String

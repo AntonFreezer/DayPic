@@ -10,15 +10,8 @@ import Combine
 
 final class PictureDetailViewController: GenericViewController<PictureDetailView> {
     
-    //MARK: - IO
+    //MARK: - Properties
     private let viewModel: PictureDetailViewModel
-    
-    private var output: AnyPublisher<PictureDetailViewModel.Input, Never> {
-        return subject.eraseToAnyPublisher()
-    }
-    private let subject = PassthroughSubject<PictureDetailViewModel.Input, Never>()
-    
-    private var cancellables = Set<AnyCancellable>()
     
     //MARK: - Lifecycle & Setup
     init(viewModel: PictureDetailViewModel) {
@@ -49,6 +42,7 @@ final class PictureDetailViewController: GenericViewController<PictureDetailView
     
 }
 
+//MARK: - UIScrollViewDelegate
 extension PictureDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let statusBarHeight = (rootView.window?.windowScene?.statusBarManager?.statusBarFrame.height)!

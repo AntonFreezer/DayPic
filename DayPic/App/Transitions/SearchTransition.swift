@@ -16,7 +16,7 @@ protocol Picture: Hashable, Equatable {
 
 enum SearchTransition {
     case initialScreen
-//    case detailScreen(picture: Picture)
+    case detailScreen(picture: PictureRepresentable)
     
     var identifier: String { "\(self)" }
     
@@ -24,10 +24,9 @@ enum SearchTransition {
         switch self {
         case .initialScreen:
             return SearchCoordinator(router: router)
-//        case .detailScreen(let picture):
-//            return PictureDetailCoordinator(picture: picture, router: router) // routers are different
+        case .detailScreen(let picture):
+            return PictureDetailCoordinator(picture: picture, router: router)
         }
     }
-    
     
 }

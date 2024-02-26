@@ -9,47 +9,33 @@ import UIKit
 import Combine
 import NasaNetwork
 
-final class PictureDetailViewModel: NSObject, ViewModelType {
-    typealias Router = PicturesRouter
+final class PictureDetailViewModel: NSObject, BasicViewModelType {
     
     //MARK: - Properties
+    typealias Router = Routable
     private(set) var router: any Router
-        
-    private let picture: NasaPictureEntity
+    
+    private let picture: PictureRepresentable
     
     public var pictureTitle: String {
         picture.title
     }
     
-    public var pictureExplanation: String {
-        picture.explanation
+    public var pictureDescription: String {
+        picture.description
     }
     
     private var pictureImageURL: URL? {
-        URL(string: picture.url)
-    }
-    
-    //MARK: - IO
-    enum Input { }
-    enum Output { }
-    
-    var output: AnyPublisher<Output, Never> {
-        return subject.eraseToAnyPublisher()
-    }
-    private let subject = PassthroughSubject<Output, Never>()
-    var cancellables = Set<AnyCancellable>()
-    func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
-        return output
+        URL(string: picture.imageURL)
     }
     
     //MARK: - Setup && Lifecycle
-    init(picture: NasaPictureEntity, router: any Router) {
+    init(picture: PictureRepresentable, router: any Router) {
         self.picture = picture
         self.router = router
     }
-    
 }
-
+    
 //MARK: - Network
 extension PictureDetailViewModel {
     public func fetchImage(completion: @escaping (Result<URL, Error>) -> Void) {

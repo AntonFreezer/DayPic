@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol Router: AnyObject {
+protocol Routable: AnyObject {
     associatedtype Route
     var navigationController: NavigationController { get set }
     @discardableResult func resetToRoot(animated: Bool) -> Self
@@ -15,7 +15,7 @@ protocol Router: AnyObject {
     func process(route: Route)
 }
 
-extension Router {
+extension Routable {
     /// Default implementation where current flow's router pops to root view controller
     /// - Parameter animated: should animate?
     /// - Returns: discardable instance of flow's router
@@ -25,7 +25,7 @@ extension Router {
     }
 }
 
-protocol AppRouter: Router where Route == AppTransition { }
-protocol PicturesRouter: Router where Route == PicturesTransition { }
-protocol SearchRouter: Router where Route == SearchTransition { }
+protocol AppRouter: Routable where Route == AppTransition { }
+protocol PicturesRouter: Routable where Route == PicturesTransition { }
+protocol SearchRouter: Routable where Route == SearchTransition { }
 
