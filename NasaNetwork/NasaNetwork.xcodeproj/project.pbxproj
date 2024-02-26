@@ -1,0 +1,558 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		96204F922B8920A20092AB04 /* NasaAPODStartEndDateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96204F912B8920A20092AB04 /* NasaAPODStartEndDateRequest.swift */; };
+		9679FF602B8A3BE90065075F /* NasaLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679FF5F2B8A3BE90065075F /* NasaLibraryTests.swift */; };
+		9679FF632B8A3BF30065075F /* NasaApodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679FF622B8A3BF20065075F /* NasaApodTests.swift */; };
+		967EF5502B89F13300E0A0C9 /* NasaLibrarySearchEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967EF54F2B89F13300E0A0C9 /* NasaLibrarySearchEntity.swift */; };
+		967EF5572B89F48300E0A0C9 /* NasaLibraryPictureRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967EF5562B89F48300E0A0C9 /* NasaLibraryPictureRequest.swift */; };
+		968D98112B878B1F00A36964 /* NasaNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 968D98082B878B1F00A36964 /* NasaNetwork.framework */; };
+		968D98172B878B1F00A36964 /* NasaNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 968D980B2B878B1F00A36964 /* NasaNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		968D98312B878C4900A36964 /* NasaNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D98302B878C4900A36964 /* NasaNetworkRequest.swift */; };
+		968D98332B878C9D00A36964 /* NasaNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D98322B878C9D00A36964 /* NasaNetworkClient.swift */; };
+		968D98352B878EDA00A36964 /* NasaNetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D98342B878EDA00A36964 /* NasaNetworkError.swift */; };
+		968D983B2B87C28100A36964 /* NasaPictureEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D983A2B87C28100A36964 /* NasaPictureEntity.swift */; };
+		968D983E2B87C55E00A36964 /* NasaAPODRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D983D2B87C55E00A36964 /* NasaAPODRequest.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		968D98122B878B1F00A36964 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 968D97FF2B878B1E00A36964 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 968D98072B878B1F00A36964;
+			remoteInfo = NasaNetwork;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		96204F912B8920A20092AB04 /* NasaAPODStartEndDateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NasaAPODStartEndDateRequest.swift; sourceTree = "<group>"; };
+		9679FF5F2B8A3BE90065075F /* NasaLibraryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NasaLibraryTests.swift; sourceTree = "<group>"; };
+		9679FF622B8A3BF20065075F /* NasaApodTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NasaApodTests.swift; sourceTree = "<group>"; };
+		967EF54F2B89F13300E0A0C9 /* NasaLibrarySearchEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NasaLibrarySearchEntity.swift; sourceTree = "<group>"; };
+		967EF5562B89F48300E0A0C9 /* NasaLibraryPictureRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NasaLibraryPictureRequest.swift; sourceTree = "<group>"; };
+		968D98082B878B1F00A36964 /* NasaNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NasaNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		968D980B2B878B1F00A36964 /* NasaNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NasaNetwork.h; sourceTree = "<group>"; };
+		968D98102B878B1F00A36964 /* NasaNetworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NasaNetworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		968D98302B878C4900A36964 /* NasaNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NasaNetworkRequest.swift; sourceTree = "<group>"; };
+		968D98322B878C9D00A36964 /* NasaNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NasaNetworkClient.swift; sourceTree = "<group>"; };
+		968D98342B878EDA00A36964 /* NasaNetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NasaNetworkError.swift; sourceTree = "<group>"; };
+		968D983A2B87C28100A36964 /* NasaPictureEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NasaPictureEntity.swift; sourceTree = "<group>"; };
+		968D983D2B87C55E00A36964 /* NasaAPODRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NasaAPODRequest.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		968D98052B878B1F00A36964 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		968D980D2B878B1F00A36964 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				968D98112B878B1F00A36964 /* NasaNetwork.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9679FF642B8A3D780065075F /* NasaNetworkTests */ = {
+			isa = PBXGroup;
+			children = (
+				9679FF622B8A3BF20065075F /* NasaApodTests.swift */,
+				9679FF5F2B8A3BE90065075F /* NasaLibraryTests.swift */,
+			);
+			name = NasaNetworkTests;
+			sourceTree = "<group>";
+		};
+		967EF5552B89F46500E0A0C9 /* NASA Library */ = {
+			isa = PBXGroup;
+			children = (
+				967EF5562B89F48300E0A0C9 /* NasaLibraryPictureRequest.swift */,
+			);
+			path = "NASA Library";
+			sourceTree = "<group>";
+		};
+		968D97FE2B878B1E00A36964 = {
+			isa = PBXGroup;
+			children = (
+				9679FF642B8A3D780065075F /* NasaNetworkTests */,
+				968D980A2B878B1F00A36964 /* NasaNetwork */,
+				968D98092B878B1F00A36964 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		968D98092B878B1F00A36964 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				968D98082B878B1F00A36964 /* NasaNetwork.framework */,
+				968D98102B878B1F00A36964 /* NasaNetworkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		968D980A2B878B1F00A36964 /* NasaNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				968D980B2B878B1F00A36964 /* NasaNetwork.h */,
+				968D98322B878C9D00A36964 /* NasaNetworkClient.swift */,
+				968D98302B878C4900A36964 /* NasaNetworkRequest.swift */,
+				968D98342B878EDA00A36964 /* NasaNetworkError.swift */,
+				968D98362B87C02D00A36964 /* Entities */,
+				968D98372B87C03C00A36964 /* Requests */,
+			);
+			path = NasaNetwork;
+			sourceTree = "<group>";
+		};
+		968D98362B87C02D00A36964 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				968D98382B87C15D00A36964 /* APOD */,
+				968D98392B87C18200A36964 /* NASA Library */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		968D98372B87C03C00A36964 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				968D983C2B87C53900A36964 /* APOD */,
+				967EF5552B89F46500E0A0C9 /* NASA Library */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		968D98382B87C15D00A36964 /* APOD */ = {
+			isa = PBXGroup;
+			children = (
+				968D983A2B87C28100A36964 /* NasaPictureEntity.swift */,
+			);
+			path = APOD;
+			sourceTree = "<group>";
+		};
+		968D98392B87C18200A36964 /* NASA Library */ = {
+			isa = PBXGroup;
+			children = (
+				967EF54F2B89F13300E0A0C9 /* NasaLibrarySearchEntity.swift */,
+			);
+			path = "NASA Library";
+			sourceTree = "<group>";
+		};
+		968D983C2B87C53900A36964 /* APOD */ = {
+			isa = PBXGroup;
+			children = (
+				968D983D2B87C55E00A36964 /* NasaAPODRequest.swift */,
+				96204F912B8920A20092AB04 /* NasaAPODStartEndDateRequest.swift */,
+			);
+			path = APOD;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		968D98032B878B1F00A36964 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				968D98172B878B1F00A36964 /* NasaNetwork.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		968D98072B878B1F00A36964 /* NasaNetwork */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 968D981A2B878B1F00A36964 /* Build configuration list for PBXNativeTarget "NasaNetwork" */;
+			buildPhases = (
+				968D98032B878B1F00A36964 /* Headers */,
+				968D98042B878B1F00A36964 /* Sources */,
+				968D98052B878B1F00A36964 /* Frameworks */,
+				968D98062B878B1F00A36964 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NasaNetwork;
+			productName = NasaNetwork;
+			productReference = 968D98082B878B1F00A36964 /* NasaNetwork.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		968D980F2B878B1F00A36964 /* NasaNetworkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 968D981D2B878B1F00A36964 /* Build configuration list for PBXNativeTarget "NasaNetworkTests" */;
+			buildPhases = (
+				968D980C2B878B1F00A36964 /* Sources */,
+				968D980D2B878B1F00A36964 /* Frameworks */,
+				968D980E2B878B1F00A36964 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				968D98132B878B1F00A36964 /* PBXTargetDependency */,
+			);
+			name = NasaNetworkTests;
+			productName = NasaNetworkTests;
+			productReference = 968D98102B878B1F00A36964 /* NasaNetworkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		968D97FF2B878B1E00A36964 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					968D98072B878B1F00A36964 = {
+						CreatedOnToolsVersion = 15.2;
+						LastSwiftMigration = 1520;
+					};
+					968D980F2B878B1F00A36964 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+				};
+			};
+			buildConfigurationList = 968D98022B878B1E00A36964 /* Build configuration list for PBXProject "NasaNetwork" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 968D97FE2B878B1E00A36964;
+			productRefGroup = 968D98092B878B1F00A36964 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				968D98072B878B1F00A36964 /* NasaNetwork */,
+				968D980F2B878B1F00A36964 /* NasaNetworkTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		968D98062B878B1F00A36964 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		968D980E2B878B1F00A36964 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		968D98042B878B1F00A36964 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				967EF5502B89F13300E0A0C9 /* NasaLibrarySearchEntity.swift in Sources */,
+				968D98352B878EDA00A36964 /* NasaNetworkError.swift in Sources */,
+				968D98332B878C9D00A36964 /* NasaNetworkClient.swift in Sources */,
+				968D983B2B87C28100A36964 /* NasaPictureEntity.swift in Sources */,
+				96204F922B8920A20092AB04 /* NasaAPODStartEndDateRequest.swift in Sources */,
+				968D98312B878C4900A36964 /* NasaNetworkRequest.swift in Sources */,
+				968D983E2B87C55E00A36964 /* NasaAPODRequest.swift in Sources */,
+				967EF5572B89F48300E0A0C9 /* NasaLibraryPictureRequest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		968D980C2B878B1F00A36964 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9679FF632B8A3BF30065075F /* NasaApodTests.swift in Sources */,
+				9679FF602B8A3BE90065075F /* NasaLibraryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		968D98132B878B1F00A36964 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 968D98072B878B1F00A36964 /* NasaNetwork */;
+			targetProxy = 968D98122B878B1F00A36964 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		968D98182B878B1F00A36964 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		968D98192B878B1F00A36964 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		968D981B2B878B1F00A36964 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y5WSGR4QBW;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.antonkh.NasaNetwork;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		968D981C2B878B1F00A36964 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y5WSGR4QBW;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.antonkh.NasaNetwork;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		968D981E2B878B1F00A36964 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y5WSGR4QBW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.antonkh.NasaNetworkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		968D981F2B878B1F00A36964 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y5WSGR4QBW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.antonkh.NasaNetworkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		968D98022B878B1E00A36964 /* Build configuration list for PBXProject "NasaNetwork" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				968D98182B878B1F00A36964 /* Debug */,
+				968D98192B878B1F00A36964 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		968D981A2B878B1F00A36964 /* Build configuration list for PBXNativeTarget "NasaNetwork" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				968D981B2B878B1F00A36964 /* Debug */,
+				968D981C2B878B1F00A36964 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		968D981D2B878B1F00A36964 /* Build configuration list for PBXNativeTarget "NasaNetworkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				968D981E2B878B1F00A36964 /* Debug */,
+				968D981F2B878B1F00A36964 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 968D97FF2B878B1E00A36964 /* Project object */;
+}
