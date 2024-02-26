@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PicturesCoordinator<R: PicturesRouter> {
+final class PicturesCoordinator<R: Routable> {
     let router: R
 
     init(router: R) {

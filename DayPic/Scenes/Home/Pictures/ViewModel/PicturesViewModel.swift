@@ -12,7 +12,7 @@ import NasaNetwork
 final class PicturesViewModel: NSObject, IOViewModelType {
     
     //MARK: - Properties
-    typealias Router = PicturesRouter
+    typealias Router = Routable
     private(set) var router: any Router
     private let networkService: NasaNetworkClient
     
@@ -76,7 +76,9 @@ final class PicturesViewModel: NSObject, IOViewModelType {
                                         amount: 10)
                 subject.send(.didLoadPictures)
             case .didSelectPicture(let picture):
-                router.process(route: .detailScreen(picture: picture))
+                if let router = router as? (any PicturesRouter) {
+                    router.process(route: .detailScreen(picture: picture))
+                }
             }
         }.store(in: &cancellables)
         

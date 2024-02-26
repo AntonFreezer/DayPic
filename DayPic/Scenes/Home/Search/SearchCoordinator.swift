@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SearchCoordinator<R: SearchRouter> {
+final class SearchCoordinator<R: Routable> {
     let router: R
 
     init(router: R) {

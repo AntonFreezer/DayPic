@@ -12,7 +12,7 @@ import NasaNetwork
 final class SearchViewModel: NSObject, IOViewModelType {
     
     //MARK: - Properties
-    typealias Router = SearchRouter
+    typealias Router = Routable
     private(set) var router: any Router
     private let networkService: NasaNetworkClient
     
@@ -70,7 +70,9 @@ final class SearchViewModel: NSObject, IOViewModelType {
                 fetchPictures(with: url)
                 subject.send(.didLoadPictures)
             case .didSelectPicture(let picture):
-                router.process(route: .detailScreen(picture: picture))
+                if let router = router as? (any SearchRouter) {
+                    router.process(route: .detailScreen(picture: picture))
+                }
             }
         }.store(in: &cancellables)
         
